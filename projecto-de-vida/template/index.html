@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>D.C.T-Youths — Projecto de Vida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── TOKENS ── */
+  :root {
+    --ink:        #0B1A38;
+    --ink-soft:   #4A5568;
+    --accent:     #F05A28;
+    --accent-dim: rgba(240,90,40,0.10);
+    --bg:         #F5F3EF;
+    --bg-card:    #FFFFFF;
+    --divider:    rgba(11,26,56,0.12);
+    --slide-dark-bg: #0B1A38;
+    --slide-dark-text: #F5F3EF;
+    --slide-dark-accent: #F05A28;
+
+    --f-display: 'Cormorant Garamond', Georgia, serif;
+    --f-body:    'DM Sans', system-ui, sans-serif;
+
+    --ease: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur: 0.5s;
+  }
+
+  /* ── RESET ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: var(--f-body);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── DECK ── */
+  .deck {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  /* ── SLIDE ── */
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(36px, 5.5vw, 72px) clamp(24px, 7vw, 112px);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+    will-change: transform, opacity;
+  }
+  .slide.active { transform: translateX(0); opacity: 1; }
+  .slide.prev   { transform: translateX(-100%); opacity: 0; }
+
+  /* ── SLIDE THEMES ── */
+  .slide-dark  { background: var(--slide-dark-bg); color: var(--slide-dark-text); }
+  .slide-light { background: var(--bg); color: var(--ink); }
+  .slide-white { background: var(--bg-card); color: var(--ink); }
+
+  /* ── TYPOGRAPHY ── */
+  .eyebrow {
+    font-family: var(--f-body);
+    font-size: clamp(10px, 1vw, 12px);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 1em;
+  }
+  .slide-dark .eyebrow { color: var(--slide-dark-accent); opacity: 1; }
+
+  .display {
+    font-family: var(--f-display);
+    font-weight: 300;
+    font-size: clamp(34px, 6vw, 88px);
+    line-height: 1.08;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  .display em { font-style: italic; color: var(--accent); }
+  .slide-dark .display em { color: var(--slide-dark-accent); }
+
+  .heading {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: clamp(26px, 3.8vw, 56px);
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  .lead {
+    font-size: clamp(15px, 1.5vw, 20px);
+    line-height: 1.65;
+    font-weight: 300;
+    max-width: 58ch;
+  }
+  .body-text {
+    font-size: clamp(13px, 1.2vw, 17px);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 62ch;
+  }
+
+  /* ── RULE ── */
+  .rule {
+    width: 44px; height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 1.4em 0;
+    flex-shrink: 0;
+  }
+  .slide-dark .rule { background: var(--slide-dark-accent); }
+
+  /* ── GRID ── */
+  .cols-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(20px, 4vw, 60px);
+    align-items: start;
+  }
+  .cols-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 2vw, 32px);
+  }
+  @media (max-width: 700px) {
+    .cols-2, .cols-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ── STAT TILE ── */
+  .stat-tile {
+    padding: clamp(16px, 2vw, 28px);
+    border-radius: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--divider);
+  }
+  .slide-dark .stat-tile {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.1);
+  }
+  .stat-tile .number {
+    font-family: var(--f-display);
+    font-size: clamp(36px, 5vw, 70px);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .slide-dark .stat-tile .number { color: var(--slide-dark-accent); }
+  .stat-tile .label {
+    font-size: clamp(11px, 1vw, 13px);
+    font-weight: 500;
+    opacity: 0.55;
+    margin-top: 0.35em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .stat-tile .desc {
+    font-size: clamp(12px, 1vw, 14px);
+    line-height: 1.5;
+    margin-top: 0.6em;
+    opacity: 0.7;
+  }
+
+  /* ── CHECK LIST ── */
+  .check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+  }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7em;
+    font-size: clamp(13px, 1.2vw, 17px);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .check-list li::before {
+    content: '→';
+    color: var(--accent);
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 0.05em;
+  }
+  .slide-dark .check-list li::before { color: var(--slide-dark-accent); }
+
+  /* ── MODULE PILLS ── */
+  .module-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-top: 0.5em;
+  }
+  .module-pill {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    padding: 0.5em 0.8em;
+    border-radius: 4px;
+    background: var(--accent-dim);
+    border-left: 3px solid var(--accent);
+    font-size: clamp(11px, 0.9vw, 13px);
+    line-height: 1.3;
+    min-width: 0;
+    flex: 1 1 200px;
+  }
+  .module-pill strong {
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  /* ── BUDGET ── */
+  .budget-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 0.5em 1.5em;
+    padding: 0.9em 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .budget-item:last-child { border-bottom: none; }
+  .budget-label { font-size: clamp(13px, 1.1vw, 16px); font-weight: 400; }
+  .budget-sub   { grid-column: 1; font-size: 11px; opacity: 0.5; margin-top: -0.4em; margin-bottom: 0.4em; }
+  .budget-val {
+    font-family: var(--f-display);
+    font-size: clamp(20px, 2.2vw, 32px);
+    font-weight: 300;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .budget-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 0.9em;
+    border-top: 2px solid var(--ink);
+    margin-top: 0.4em;
+  }
+  .budget-total .label { font-weight: 600; font-size: clamp(13px, 1.1vw, 16px); }
+  .budget-total .val {
+    font-family: var(--f-display);
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  /* ── COVER ── */
+  .cover-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4em 1em;
+    border-radius: 2px;
+    margin-bottom: 2.5em;
+    align-self: flex-start;
+  }
+  .cover-sub {
+    font-size: clamp(14px, 1.6vw, 20px);
+    font-weight: 300;
+    opacity: 0.6;
+    margin-top: 1.2em;
+    max-width: 50ch;
+  }
+
+  /* ── QUOTE BLOCK ── */
+  .blockquote {
+    border-left: 3px solid var(--slide-dark-accent);
+    padding-left: 1.2em;
+    margin-top: 1.5em;
+  }
+  .blockquote p {
+    font-family: var(--f-display);
+    font-style: italic;
+    font-size: clamp(16px, 1.6vw, 22px);
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  /* ── HELPERS ── */
+  .spacer { flex: 1; }
+  .mt-auto { margin-top: auto; }
+  .slide-foot {
+    margin-top: auto;
+    padding-top: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0.3;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  /* ── TEMPLATE TAG ── */
+  .template-tag {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: rgba(240,90,40,0.85);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3em 0.7em;
+    border-radius: 2px;
+    z-index: 200;
+    pointer-events: none;
+  }
+
+  /* ── NAVIGATION ── */
+  .controls {
+    position: fixed;
+    bottom: clamp(18px, 2.5vw, 32px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    z-index: 100;
+    background: rgba(11,26,56,0.88);
+    backdrop-filter: blur(14px);
+    border-radius: 100px;
+    padding: 5px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  }
+  .btn-nav {
+    width: 38px; height: 38px;
+    border-radius: 100px;
+    border: none;
+    background: transparent;
+    color: rgba(245,243,239,0.65);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.18s, color 0.18s;
+  }
+  .btn-nav:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  .btn-nav:disabled { opacity: 0.22; cursor: not-allowed; }
+
+  .counter {
+    font-family: var(--f-body);
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(245,243,239,0.55);
+    letter-spacing: 0.12em;
+    min-width: 46px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--accent);
+    transition: width var(--dur) var(--ease);
+    z-index: 100;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide, .progress { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="template-tag">Template</div>
+
+<div class="deck" id="deck">
+
+  <!-- ────────────────────────────────────────────
+       SLIDE 1 · CAPA
+  ──────────────────────────────────────────── -->
+  <div class="slide slide-dark active">
+    <span class="cover-tag">Proposta de Parceria · Projecto de Vida</span>
+    <div class="eyebrow">D.C.T-Youths · Dreams Can Come True</div>
+    <h1 class="display">
+      Ajuda-nos a<br>construir o<br><em>futuro de<br>jovens.</em>
+    </h1>
+    <p class="cover-sub">Uma apresentação para [NOME DA EMPRESA / ORGANIZAÇÃO]</p>
+    <div class="mt-auto" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1em; padding-top:2em; border-top:1px solid rgba(255,255,255,0.1); margin-top:2em;">
+      <div>
+        <div style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; opacity:0.4; margin-bottom:0.3em">Apresentado por</div>
+        <div style="font-family:var(--f-display); font-size:clamp(16px,1.8vw,22px); font-weight:300">Isaías Conjo</div>
+        <div style="font-size:12px; opacity:0.4; margin-top:0.2em">Fundador · D.C.T-Youths</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; opacity:0.4; margin-bottom:0.3em">Empresa parceira</div>
+        <div style="font-family:var(--f-display); font-size:clamp(16px,1.8vw,22px); font-weight:300; opacity:0.5">[EMPRESA]</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────────────────────────────────────
+       SLIDE 2 · QUEM SOMOS
+  ──────────────────────────────────────────── -->
+  <div class="slide slide-light">
+    <div class="eyebrow">Sobre nós</div>
+    <h2 class="heading">D.C.T-Youths — <em style="font-style:italic; color:var(--accent)">Dreams Can Come True</em></h2>
+    <div class="rule"></div>
+    <div class="cols-2" style="flex:1; align-items:center; margin-top:0.5em;">
+      <div>
+        <p class="lead" style="margin-bottom:1.5em">
+          Somos uma organização sem fins-lucrativos que acredita nos jovens como agentes de mudança e transformação social.
+        </p>
+        <p class="body-text" style="margin-bottom:1.5em">
+          O nosso objectivo é ajudar cada jovem a descobrir o seu propósito, potencial, desejos e motivações para <strong>FAZER, AGIR e LIDERAR</strong> — preparando líderes completos para a vida, independentemente de fronteiras ou contextos.
+        </p>
+        <ul class="check-list">
+          <li>Impacto Social &amp; Acesso à Educação</li>
+          <li>Mentoria e orientação de vida</li>
+          <li>Transparência e Integridade</li>
+          <li>Parcerias com alcance internacional</li>
+        </ul>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:1em;">
+        <div class="stat-tile">
+          <div class="number">+200</div>
+          <div class="label">Jovens atendidos</div>
+          <div class="desc">Programa 2025–2026 (Moçambique + Brasil)</div>
+        </div>
+        <div class="stat-tile">
+          <div class="number">+25</div>
+          <div class="label">Estudantes formados</div>
+          <div class="desc">Que continuam seus estudos até hoje</div>
+        </div>
+        <div class="stat-tile">
+          <div class="number">+200h</div>
+          <div class="label">Voluntariado gerado</div>
+          <div class="desc">+15 voluntários · +150 candidaturas</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>dctyouths.com</span><span>Projecto de Vida</span></div>
+  </div>
+
+  <!-- ────────────────────────────────────────────
+       SLIDE 3 · O PROBLEMA
+  ──────────────────────────────────────────── -->
+  <div class="slide slide-white">
+    <div class="eyebrow">O contexto</div>
+    <h2 class="heading">O desafio que<br>queremos resolver</h2>
+    <div class="rule"></div>
+    <div class="cols-2" style="flex:1; align-items:center; margin-top:0.5em;">
+      <div>
+        <p class="body-text" style="margin-bottom:1.2em">
+          Milhares de jovens sonham em ingressar na universidade e construir um futuro melhor. No entanto, muitos enfrentam barreiras significativas: falta de orientação académica, acesso limitado a informações sobre oportunidades e ausência de mentoria.
+        </p>
+        <p class="body-text" style="margin-bottom:1.2em">
+          Sem uma bússola clara, o talento e a vontade não chegam a se transformar em realidade.
+        </p>
+        <ul class="check-list">
+          <li>Falta de orientação de carreira no ensino secundário</li>
+          <li>Acesso limitado a mentores e modelos de referência</li>
+          <li>Pouco apoio para planear trajectória profissional</li>
+          <li>Desconhecimento de bolsas e oportunidades de estágio</li>
+        </ul>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:1em;">
+        <div class="stat-tile">
+          <div class="number" style="font-size:clamp(28px,4vw,56px)">11ª–12ª</div>
+          <div class="label">Classe — Público-alvo</div>
+          <div class="desc">Jovens no penúltimo e último ano do ensino secundário com vontade de continuar a estudar</div>
+        </div>
+        <div class="stat-tile" style="background:var(--accent-dim); border-color:rgba(240,90,40,0.2)">
+          <div style="font-family:var(--f-display); font-style:italic; font-size:clamp(16px,1.6vw,22px); font-weight:300; line-height:1.5; color:var(--accent)">
+            "Elaborar um projecto de vida significa compreender quem somos, reconhecer as nossas potencialidades e planear caminhos que conduzam à concretização dos objectivos desejados."
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>dctyouths.com</span><span>Projecto de Vida</span></div>
+  </div>
+
+  <!-- ────────────────────────────────────────────
+       SLIDE 4 · O PROGRAMA
+  ──────────────────────────────────────────── -->
+  <div class="slide slide-light">
+    <div class="eyebrow">A nossa resposta</div>
+    <h2 class="heading">Projecto de Vida D.C.T-Youths</h2>
+    <div class="rule"></div>
+    <div class="cols-2" style="flex:1; align-items:start; margin-top:0.5em;">
+      <div>
+        <p class="body-text" style="margin-bottom:1.2em">
+          Um programa de orientação e autoconhecimento para estudantes do ensino secundário que os equipa com ferramentas concretas para construir o seu futuro — da identidade ao currículo, da mentoria às oportunidades.
+        </p>
+        <div class="module-grid">
+          <div class="module-pill"><strong>M1</strong> Ser — Autoconhecimento e formação</div>
+          <div class="module-pill"><strong>M2</strong> Conviver — Relação e comunicação</div>
+          <div class="module-pill"><strong>M3</strong> Escolher — Decisão e Projecto de Vida</div>
+          <div class="module-pill"><strong>M4</strong> Transformar — Protagonismo e Futuro</div>
+          <div class="module-pill"><strong>M5</strong> Comunicar — Postura Profissional</div>
+          <div class="module-pill"><strong>M6</strong> Desenvolver — Carreira e Mercado</div>
+          <div class="module-pill"><strong>M7</strong> Interagir — Gestão Emocional</div>
+          <div class="module-pill"><strong>M8</strong> Planejar — Jornada e Encerramento</div>
+          <div class="module-pill"><strong>M9</strong> Consolidar — Encerramento Geral</div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:0.9em;">
+        <div class="stat-tile">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <div class="label" style="opacity:1; font-weight:500">Formato</div>
+          </div>
+          <div style="font-family:var(--f-display); font-size:clamp(18px,2vw,28px); font-weight:300; margin-top:0.3em">Presencial · 1× por semana</div>
+          <div style="font-size:12px; opacity:0.5; margin-top:0.2em">Sessões de 45 min · durante o intervalo</div>
+        </div>
+        <div class="stat-tile">
+          <div class="number" style="font-size:clamp(28px,4vw,52px)">9</div>
+          <div class="label">Módulos temáticos</div>
+          <div class="desc">19 sessões totais · ~5 meses de duração</div>
+        </div>
+        <div class="stat-tile">
+          <div class="number" style="font-size:clamp(28px,4vw,52px)">24</div>
+          <div class="label">Participantes por edição</div>
+          <div class="desc">Jovens em 11ª e 12ª classe</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-foot"><span>dctyouths.com</span><span>Projecto de Vida</span></div>
+  </div>
+
+  <!-- ────────────────────────────────────────────
+       SLIDE 5 · IMPACTO
+  ──────────────────────────────────────────── -->
+  <div class="slide slide-dark">
+    <div class="eyebrow">Resultados esperados</div>
+    <h2 class="heading" style="color:var(--slide-dark-text)">O impacto desta<br>parceria</h2>
+    <div class="rule"></div>
+    <div class="cols-3" style="margin-top:1.2em; flex:1; align-items:start;">
+      <div class="stat-tile">
+        <div class="number">24</div>
+        <div class="label">Jovens beneficiados</div>
+        <div class="desc">Estudantes do ensino secundário com acesso a mentoria e orientação profissional</div>
+      </div>
+      <div class="stat-tile">
+        <div class="number">+5</div>
+        <div class="label">Mentores voluntários</div>
+        <div class="desc">Profissionais que acompanham os jovens ao longo do programa</div>
+      </div>
+      <div class="stat-tile">
+        <div class="number">9</div>
+        <div class="label">Áreas de desenvolvimento</div>
+        <div class="desc">Autoconhecimento, liderança, carreira, comunicação e mais</div>
+      </div>
+    </div>
+    <div class="blockquote" style="max-width:60ch;">
+      <p>"Pequenos actos, quando multiplicados por milhões de pessoas, podem transformar o mundo."</p>
+    </div>
+    <div class="slide-foot" style="color:var(--slide-dark-text)"><span>dctyouths.com</span><span>Projecto de Vida</span></div>
+  </div>
+
+  <!-- ────────────────────────────────────────────
+       SLIDE 6 · O QUE PEDIMOS  ← personalizar por empresa
+  ──────────────────────────────────────────── -->
+  <div class="slide slide-white">
+    <div class="eyebrow">A nossa proposta</div>
+    <h2 class="heading">O que pedimos<br>à [EMPRESA]</h2>
+    <div class="rule"></div>
+    <div class="cols-2" style="flex:1; align-items:start; margin-top:0.5em; gap:clamp(24px,5vw,80px);">
+      <div>
+        <p class="body-text" style="margin-bottom:1.5em">
+          Buscamos construir uma colaboração baseada em valores comuns — na realização conjunta de acções que possam beneficiar mais jovens.
+        </p>
+        <div style="margin-top:0.5em">
+          <div class="budget-item">
+            <span class="budget-label">Todo material escolar</span>
+            <span class="budget-val">$140</span>
+            <span class="budget-sub">Para 24 participantes</span>
+          </div>
+          <div class="budget-item">
+            <span class="budget-label">Lanche (1 dia por encontro)</span>
+            <span class="budget-val">$190</span>
+            <span class="budget-sub">Para 24 participantes · 24 encontros durante 5 meses</span>
+          </div>
+          <div class="budget-item">
+            <span class="budget-label">Transporte de voluntário (1 dia)</span>
+            <span class="budget-val">$25</span>
+            <span class="budget-sub">Para 5 voluntários mentores</span>
+          </div>
+          <div class="budget-total">
+            <span class="label">Total necessário</span>
+            <span class="val">R$ 5.891</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; opacity:0.45; margin-bottom:1em">O que a [EMPRESA] ganha em troca</div>
+        <ul class="check-list">
+          <li>Padrinhos profissionais — membros da D.C.T-Youths para palestras sobre temas variáveis, posicionando [EMPRESA] como referência em educação</li>
+          <li>Conteúdo produzido para redes sociais sobre a parceria</li>
+          <li>Relatório trimestral de prestação de contas com indicadores e registos fotográficos</li>
+          <li>Acesso a um banco com +20 mentores</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-foot"><span>dctyouths.com</span><span>Projecto de Vida</span></div>
+  </div>
+
+  <!-- ────────────────────────────────────────────
+       SLIDE 7 · FECHO
+  ──────────────────────────────────────────── -->
+  <div class="slide slide-dark">
+    <div class="spacer"></div>
+    <div class="eyebrow">Próximos passos</div>
+    <h2 class="display" style="color:var(--slide-dark-text); max-width:14ch">
+      Juntos,<br>podemos<br><em>realizar<br>sonhos.</em>
+    </h2>
+    <div class="rule"></div>
+    <div class="cols-2" style="margin-top:1em; align-items:start; gap:clamp(24px,5vw,72px);">
+      <ul class="check-list" style="color:var(--slide-dark-text)">
+        <li>Reunião de apresentação detalhada</li>
+        <li>Envio de proposta formal e acordo de parceria</li>
+        <li>Visita ao local do programa</li>
+        <li>Início da parceria e primeiras sessões</li>
+      </ul>
+      <div style="color:var(--slide-dark-text);">
+        <div style="margin-bottom:1.2em">
+          <div style="font-size:10px; letter-spacing:0.18em; text-transform:uppercase; opacity:0.4; margin-bottom:0.4em">Contacto</div>
+          <div style="font-family:var(--f-display); font-size:clamp(18px,2vw,26px); font-weight:300">Isaías Conjo</div>
+          <div style="font-size:clamp(12px,1.1vw,15px); opacity:0.55; margin-top:0.3em; line-height:1.8">
+            halleyconjo@gmail.com<br>
+            dctyouths.com
+          </div>
+        </div>
+        <div style="padding-top:1em; border-top:1px solid rgba(255,255,255,0.1)">
+          <div style="font-family:var(--f-display); font-style:italic; font-size:clamp(14px,1.4vw,18px); font-weight:300; opacity:0.6; line-height:1.5">
+            "Dreams are not discussed — se realizam."
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div style="font-size:10px; opacity:0.2; letter-spacing:0.14em; text-transform:uppercase; text-align:center; padding-bottom:0.5em">
+      D.C.T-Youths · Projecto de Vida · dctyouths.com
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- ── NAVIGATION ── -->
+<nav class="controls" aria-label="Navegação de slides">
+  <button class="btn-nav" id="btn-prev" aria-label="Slide anterior">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+      <path d="M9.5 11.5L5.5 7.5L9.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <span class="counter" id="counter">1 / 7</span>
+  <button class="btn-nav" id="btn-next" aria-label="Próximo slide">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+      <path d="M5.5 3.5L9.5 7.5L5.5 11.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</nav>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const counter = document.getElementById('counter');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const progress = document.getElementById('progress');
+  const total = slides.length;
+  let current = 0;
+
+  function goTo(n) {
+    if (n < 0 || n >= total) return;
+    slides[current].classList.remove('active');
+    slides[current].classList.add('prev');
+    const old = slides[current];
+    setTimeout(() => old.classList.remove('prev'), 600);
+    current = n;
+    slides[current].classList.add('active');
+    update();
+  }
+
+  function update() {
+    counter.textContent = `${current + 1} / ${total}`;
+    progress.style.width = `${((current + 1) / total) * 100}%`;
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === total - 1;
+  }
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', e => {
+    const map = { ArrowRight: 1, ArrowDown: 1, ' ': 1, ArrowLeft: -1, ArrowUp: -1 };
+    if (e.key in map) { e.preventDefault(); goTo(current + map[e.key]); }
+    else if (e.key === 'Home') goTo(0);
+    else if (e.key === 'End')  goTo(total - 1);
+  });
+
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 48) goTo(current + (dx > 0 ? 1 : -1));
+  }, { passive: true });
+
+  update();
+</script>
+</body>
+</html>
