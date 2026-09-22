@@ -5,24 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>D.C.T-Youths — Projecto de Vida</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow+Condensed:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink:        #0B1A38;
-    --ink-soft:   #4A5568;
-    --accent:     #C9A84C;
-    --accent-dim: rgba(201,168,76,0.12);
-    --bg:         #F5F3EF;
+    --ink:        #071446;
+    --ink-soft:   #3D4F7C;
+    --accent:     #1754D9;
+    --accent-dim: rgba(23,84,217,0.08);
+    --bg:         #F8FAFC;
     --bg-card:    #FFFFFF;
-    --divider:    rgba(11,26,56,0.12);
-    --dark-bg:    #0B1A38;
-    --dark-text:  #F5F3EF;
+    --divider:    rgba(7,20,70,0.1);
+    --dark-bg:    #0A1F6B;
+    --dark-text:  #FFFFFF;
     --dark-acc:   #C9A84C;
     --success:    #1A7A4A;
     --failure:    #8B1A1A;
 
-    --f-display: 'Barlow Condensed', system-ui, sans-serif;
-    --f-body:    'Barlow', system-ui, sans-serif;
+    --f-display: 'Montserrat', system-ui, sans-serif;
+    --f-body:    'Inter', system-ui, sans-serif;
     --ease: cubic-bezier(0.65, 0, 0.35, 1);
     --dur: 0.5s;
   }
@@ -45,7 +45,8 @@
     inset: 0;
     display: flex;
     flex-direction: column;
-    padding: clamp(36px, 5.5vw, 72px) clamp(24px, 7vw, 112px);
+    padding-block: clamp(36px, 5.5vw, 72px);
+    padding-inline: max(clamp(24px, 7vw, 112px), calc((100% - 1280px) / 2));
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--dur) var(--ease);
@@ -72,21 +73,22 @@
 
   .display {
     font-family: var(--f-display);
-    font-weight: 300;
-    font-size: clamp(34px, 6vw, 92px);
-    line-height: 1.06;
+    font-weight: 800;
+    font-size: clamp(32px, 5.5vw, 80px);
+    line-height: 1.08;
     text-wrap: balance;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
   .display em { font-style: italic; color: var(--accent); }
   .dark .display em { color: var(--dark-acc); }
 
   .heading {
     font-family: var(--f-display);
-    font-weight: 400;
-    font-size: clamp(26px, 3.8vw, 58px);
-    line-height: 1.14;
+    font-weight: 700;
+    font-size: clamp(24px, 3.5vw, 52px);
+    line-height: 1.18;
     text-wrap: balance;
+    letter-spacing: -0.01em;
   }
 
   .sub {
@@ -150,7 +152,7 @@
   .card .num {
     font-family: var(--f-display);
     font-size: clamp(32px, 4.5vw, 64px);
-    font-weight: 300;
+    font-weight: 700;
     line-height: 1;
     color: var(--accent);
   }
@@ -186,7 +188,7 @@
     text-transform: uppercase;
     padding: 0.3em 0.7em;
     border-radius: 3px;
-    background: rgba(201,168,76,0.2);
+    background: rgba(23,84,217,0.12);
     color: var(--dark-acc);
     white-space: nowrap;
     flex-shrink: 0;
@@ -213,7 +215,7 @@
   .step-num {
     font-family: var(--f-display);
     font-size: clamp(32px, 3.5vw, 52px);
-    font-weight: 300;
+    font-weight: 800;
     line-height: 1;
     color: var(--accent);
   }
@@ -261,9 +263,9 @@
   .cta-box .amount {
     font-family: var(--f-display);
     font-size: clamp(48px, 7vw, 108px);
-    font-weight: 300;
+    font-weight: 800;
     line-height: 1;
-    color: var(--accent);
+    color: var(--dark-acc);
   }
   .cta-box .breakdown {
     font-size: clamp(12px, 1.1vw, 15px);
@@ -556,7 +558,7 @@
         </div>
       </div>
       <div style="display:flex; flex-direction:column; gap:1em;">
-        <div class="card" style="background:var(--accent-dim); border-color:rgba(201,168,76,0.2);">
+        <div class="card" style="background:var(--accent-dim); border-color:rgba(23,84,217,0.12);">
           <div style="font-size:11px; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; opacity:0.6; margin-bottom:0.8em">O programa em números</div>
           <div style="display:flex; flex-direction:column; gap:0.6em;">
             <div style="display:flex; justify-content:space-between; font-size:clamp(13px,1.1vw,15px); padding-bottom:0.5em; border-bottom:1px solid var(--divider)">
@@ -611,7 +613,7 @@
           Transporte voluntários · R$ 25<br>
           <span style="display:block; margin-top:0.5em; opacity:0.4">≈ R$ 245 por jovem · 5 meses de programa</span>
         </div>
-        <div style="margin-top:1.5em; padding-top:1.2em; border-top:1px solid rgba(201,168,76,0.3); font-size:clamp(12px,1.1vw,15px); opacity:0.55; line-height:1.6">
+        <div style="margin-top:1.5em; padding-top:1.2em; border-top:1px solid rgba(23,84,217,0.25); font-size:clamp(12px,1.1vw,15px); opacity:0.55; line-height:1.6">
           Ou equivalente em apoio em espécie:<br>materiais, espaço ou expertise profissional.
         </div>
       </div>
