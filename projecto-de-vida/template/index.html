@@ -3,885 +3,431 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>D.C.T-Youths — Projecto de Vida</title>
+<title>Projecto de Vida · D.C.T-Youths</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    /* Brand palette — exact match to dctyouths.com */
-    --primary:       #0A1F6B;
-    --primary-mid:   #11329C;
-    --accent:        #1754D9;
-    --text:          #071446;
-    --text-soft:     #65758B;
-    --bg:            #F8FAFC;
-    --bg-card:       #FFFFFF;
-    --border:        #E1E7EF;
-
-    /* Brand gradient — used across the site */
-    --grad-brand: linear-gradient(135deg, #0A1F6B 0%, #11329C 50%, #1856DC 100%);
-    --grad-hero:  linear-gradient(to right, rgba(10,31,107,.95) 0%, rgba(10,31,107,.8) 50%, transparent 100%);
-    --grad-text:  linear-gradient(to right, #0A1F6B, #1856DC);
-
-    /* Typography — matched to site */
-    --f-display: 'Montserrat', system-ui, sans-serif;
-    --f-body:    'Inter', system-ui, sans-serif;
-
-    /* Tokens */
-    --radius:    12px;
-    --shadow-sm: 0 1px 3px rgba(7,20,70,.08), 0 1px 2px rgba(7,20,70,.06);
-    --shadow-md: 0 4px 16px rgba(7,20,70,.12);
-    --ease: cubic-bezier(0.65, 0, 0.35, 1);
-    --dur: 0.45s;
-  }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html, body {
-    height: 100%;
-    overflow: hidden;
-    background: #000;
-    font-family: var(--f-body);
-    color: var(--text);
+    height: 100%; overflow: hidden;
+    font-family: 'Barlow', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    background: #071446;
   }
 
+  /* ── Deck ── */
   .deck { position: fixed; inset: 0; overflow: hidden; }
 
-  /* ── Slide base ── */
   .slide {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    padding-block: clamp(40px, 5.5vw, 80px);
-    padding-inline: max(clamp(28px, 7vw, 120px), calc((100% - 1280px) / 2));
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--dur) var(--ease);
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.45s cubic-bezier(0.65,0,0.35,1);
   }
   .slide.active { opacity: 1; pointer-events: auto; }
 
-  /* ── Slide themes ── */
-  .theme-light  { background: var(--bg);      color: var(--text); }
-  .theme-white  { background: var(--bg-card); color: var(--text); }
-  .theme-dark   { background: var(--primary); color: #fff; }
-  .theme-brand  { background: var(--grad-brand); color: #fff; }
-  .theme-split  {
-    background: linear-gradient(to right, #0a1a10 50%, #0a1230 50%);
-    color: #fff;
-    padding: 0;
-  }
-
-  /* ── Eyebrow / section badge ── */
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4em;
-    font-family: var(--f-body);
-    font-size: clamp(11px, 0.85vw, 13px);
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--accent);
-    background: rgba(23,84,217,0.1);
-    border-radius: 100px;
-    padding: 0.35em 0.9em;
-    margin-bottom: 1.2em;
-    align-self: flex-start;
-  }
-  .theme-dark  .eyebrow,
-  .theme-brand .eyebrow { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
-
-  /* ── Typography ── */
-  .display {
-    font-family: var(--f-display);
-    font-weight: 700;
-    font-size: clamp(34px, 5.5vw, 72px);
-    line-height: 1.1;
-    letter-spacing: -0.025em;
-    text-wrap: balance;
-  }
-  .display .grad {
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .theme-dark  .display,
-  .theme-brand .display { color: #fff; }
-  .theme-dark  .display .grad,
-  .theme-brand .display .grad {
-    background: linear-gradient(to right, #fff, rgba(255,255,255,0.7));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .heading {
-    font-family: var(--f-display);
-    font-weight: 700;
-    font-size: clamp(26px, 3.8vw, 52px);
-    line-height: 1.18;
-    letter-spacing: -0.02em;
-    text-wrap: balance;
-  }
-
-  .sub {
-    font-size: clamp(16px, 1.7vw, 22px);
-    font-weight: 400;
-    line-height: 1.625;
-    max-width: 54ch;
-    color: var(--text-soft);
-  }
-  .theme-dark  .sub,
-  .theme-brand .sub { color: rgba(255,255,255,0.75); }
-
-  .lead {
-    font-size: clamp(14px, 1.35vw, 18px);
-    line-height: 1.7;
-    font-weight: 400;
-    max-width: 56ch;
-    color: var(--text-soft);
-  }
-  .theme-dark  .lead,
-  .theme-brand .lead { color: rgba(255,255,255,0.75); }
-
-  .body-sm {
-    font-size: clamp(12px, 1.05vw, 14px);
-    line-height: 1.7;
-    color: var(--text-soft);
-  }
-  .theme-dark  .body-sm,
-  .theme-brand .body-sm { color: rgba(255,255,255,0.55); }
-
-  /* ── Divider rule ── */
-  .rule {
-    width: 40px; height: 3px;
-    background: var(--accent);
-    border-radius: 100px;
-    margin: 1.2em 0;
-    flex-shrink: 0;
-  }
-  .theme-dark  .rule,
-  .theme-brand .rule { background: rgba(255,255,255,0.3); }
-
-  /* ── Layout grids ── */
-  .cols-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(20px, 4vw, 64px);
-  }
-  .cols-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(16px, 2.5vw, 32px);
-  }
-  @media (max-width: 680px) {
-    .cols-2, .cols-3 { grid-template-columns: 1fr; }
-  }
-
-  /* ── Cards — match site: white, 12px radius, shadow, no border ── */
-  .card {
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: clamp(18px, 2.2vw, 28px);
-    box-shadow: var(--shadow-sm);
-  }
-  .theme-dark .card,
-  .theme-brand .card {
-    background: rgba(255,255,255,0.08);
-    box-shadow: none;
-  }
-
-  .card-stat .num {
-    font-family: var(--f-display);
-    font-size: clamp(36px, 4.5vw, 60px);
-    font-weight: 700;
-    line-height: 1;
-    color: var(--accent);
-    letter-spacing: -0.03em;
-  }
-  .theme-dark .card-stat .num { color: rgba(255,255,255,0.9); }
-  .card-stat .lbl {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-soft);
-    margin-top: 0.35em;
-  }
-  .theme-dark .card-stat .lbl { color: rgba(255,255,255,0.5); }
-  .card-stat .desc {
-    font-size: clamp(12px, 1vw, 13px);
-    line-height: 1.55;
-    color: var(--text-soft);
-    margin-top: 0.5em;
-  }
-  .theme-dark .card-stat .desc { color: rgba(255,255,255,0.45); }
-
-  /* ── Quote card ── */
-  .card-quote {
-    font-family: var(--f-display);
-    font-size: clamp(14px, 1.4vw, 18px);
-    font-weight: 400;
-    font-style: italic;
-    line-height: 1.55;
-    color: var(--text);
-  }
-  .card-quote::before { content: '"'; color: var(--accent); font-size: 1.4em; line-height: 0; }
-  .card-quote .src {
-    font-family: var(--f-body);
-    font-size: 11px;
-    font-style: normal;
-    color: var(--text-soft);
-    margin-top: 0.9em;
-  }
-
-  /* ── Problem layers ── */
-  .problem-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    flex: 1;
-    justify-content: center;
-    margin-top: 0.5em;
-  }
-  .problem-row {
-    display: flex;
-    gap: 1em;
-    align-items: flex-start;
-    padding: 1.1em 0;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-  .problem-row:last-child { border-bottom: none; }
-  .problem-badge {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.35em 0.75em;
-    border-radius: 100px;
-    background: rgba(23,84,217,0.2);
-    color: rgba(255,255,255,0.8);
-    white-space: nowrap;
-    flex-shrink: 0;
-    margin-top: 0.1em;
-  }
-  .problem-text {
-    font-size: clamp(13px, 1.25vw, 17px);
-    line-height: 1.6;
-    font-weight: 400;
-    color: rgba(255,255,255,0.75);
-  }
-  .problem-text strong { font-weight: 600; color: #fff; }
-
-  /* ── Plan steps ── */
-  .step-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .step {
-    display: grid;
-    grid-template-columns: 52px 1fr;
-    gap: 0 1em;
-    align-items: start;
-    padding: 1em 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .step:last-child { border-bottom: none; }
-  .step-num {
-    font-family: var(--f-display);
-    font-size: clamp(28px, 3vw, 44px);
-    font-weight: 700;
-    line-height: 1;
-    color: var(--accent);
-    letter-spacing: -0.03em;
-  }
-  .step-title {
-    font-size: clamp(14px, 1.3vw, 17px);
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.3em;
-  }
-  .step-desc {
-    font-size: clamp(12px, 1.05vw, 14px);
-    line-height: 1.65;
-    color: var(--text-soft);
-  }
-
-  /* ── Data table in plan ── */
-  .data-table {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .data-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: clamp(12px, 1.1vw, 14px);
-    padding: 0.7em 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .data-row:last-child { border-bottom: none; }
-  .data-row span { color: var(--text-soft); }
-  .data-row strong { color: var(--text); font-weight: 600; }
-
-  /* ── Arrow list ── */
-  .arrow-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75em;
-  }
-  .arrow-list li {
-    display: flex;
-    gap: 0.7em;
-    font-size: clamp(13px, 1.2vw, 16px);
-    line-height: 1.55;
-    color: rgba(255,255,255,0.8);
-  }
-  .arrow-list li::before {
-    content: '→';
-    color: rgba(255,255,255,0.4);
-    font-weight: 600;
-    flex-shrink: 0;
-  }
-
-  /* ── CTA amount box ── */
-  .amount-box {
-    background: rgba(255,255,255,0.06);
-    border-radius: var(--radius);
-    padding: clamp(20px, 2.5vw, 36px);
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .amount-box .amount {
-    font-family: var(--f-display);
-    font-size: clamp(44px, 7vw, 96px);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    color: #fff;
-  }
-  .amount-box .breakdown {
-    font-size: clamp(11px, 1vw, 13px);
-    line-height: 1.9;
-    color: rgba(255,255,255,0.45);
-    margin-top: 1em;
-  }
-  .amount-box .note {
-    margin-top: 1.2em;
-    padding-top: 1em;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    font-size: clamp(11px, 1vw, 13px);
-    color: rgba(255,255,255,0.4);
-    line-height: 1.65;
-  }
-
-  /* ── CTA buttons ── */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4em;
-    font-family: var(--f-body);
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1;
-    padding: 14px 32px;
-    border-radius: var(--radius);
-    cursor: pointer;
-    text-decoration: none;
-    transition: opacity 0.15s;
-    border: none;
-  }
-  .btn:hover { opacity: 0.9; }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-ghost   {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.3);
-  }
-  .btn-group { display: flex; gap: 0.75em; flex-wrap: wrap; margin-top: 1.5em; }
-
-  /* ── Success / failure split ── */
-  .split-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  /* ── Wrapper ── */
+  .wrapper {
+    width: 100%; max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: clamp(28px, 5vw, 60px);
+    display: flex; flex-direction: column;
     height: 100%;
   }
-  .split-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25em;
-    padding: clamp(32px, 4vw, 60px);
-  }
-  .split-col:first-child {
-    background: #0a1a10;
-    border-right: 1px solid rgba(255,255,255,0.06);
-  }
-  .split-col:last-child { background: #0a1230; }
 
-  .outcome-badge {
-    display: inline-block;
-    align-self: flex-start;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.4em 1em;
-    border-radius: 100px;
-  }
-  .badge-fail    { background: rgba(239,68,68,.2); color: #fca5a5; }
-  .badge-success { background: rgba(16,185,129,.2); color: #6ee7b7; }
-
-  .outcome-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.85em;
-    margin-top: auto;
-  }
-  .outcome-list li {
-    display: flex;
-    gap: 0.65em;
-    font-size: clamp(13px, 1.25vw, 16px);
-    line-height: 1.5;
-    color: rgba(255,255,255,0.75);
-  }
-  .fail-list    li::before { content: '✕'; color: #fca5a5; flex-shrink:0; }
-  .success-list li::before { content: '✓'; color: #6ee7b7; flex-shrink:0; }
-
-  /* ── Helpers ── */
-  .spacer  { flex: 1; }
-  .mt-auto { margin-top: auto; }
-  .mt-1    { margin-top: 1em; }
-  .mt-half { margin-top: 0.5em; }
-
-  .slide-foot {
-    margin-top: auto;
-    padding-top: 1.5em;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+  /* ── Topbar ── */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: clamp(24px, 3vw, 40px);
     flex-shrink: 0;
-    color: var(--text-soft);
-    opacity: 0.6;
   }
-  .theme-dark .slide-foot,
-  .theme-brand .slide-foot { color: rgba(255,255,255,0.3); }
-
-  /* ── Template badge ── */
-  .template-tag {
-    position: fixed;
-    top: 14px; right: 14px;
-    background: var(--accent);
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.35em 0.8em;
-    border-radius: 100px;
-    z-index: 200;
-    pointer-events: none;
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .logo-text { display: flex; flex-direction: column; }
+  .logo-name {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-weight: 700; font-size: 28px; letter-spacing: 0.03em;
+    color: #fff; line-height: 1;
+  }
+  .logo-sub {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px;
+  }
+  .topbar-label {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
   }
 
-  /* ── Navigation controls ── */
-  .controls {
-    position: fixed;
-    bottom: clamp(18px, 2.5vw, 32px);
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    z-index: 100;
-    background: rgba(7,20,70,0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius: 100px;
-    padding: 5px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid rgba(255,255,255,0.08);
+  /* ── Typography ── */
+  h1, h2, h3 {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em;
   }
-  .btn-nav {
-    width: 36px; height: 36px;
-    border-radius: 100px;
-    border: none;
-    background: transparent;
-    color: rgba(255,255,255,0.55);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s, color 0.15s;
-  }
-  .btn-nav:hover  { background: rgba(255,255,255,0.1); color: #fff; }
-  .btn-nav:disabled { opacity: 0.2; cursor: not-allowed; }
+  h1 { font-size: clamp(32px, 4.6vw, 62px); line-height: 1.07; color: #fff; margin-bottom: 24px; }
+  h2 { font-size: clamp(32px, 4.4vw, 60px); line-height: 1.1; color: #fff; margin-bottom: 20px; }
 
-  .counter {
-    font-size: 11px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 0.1em;
-    min-width: 46px;
-    text-align: center;
-    font-variant-numeric: tabular-nums;
+  p {
+    font-size: clamp(14px, 1.4vw, 16.5px); line-height: 1.7; font-weight: 400;
+    max-width: 48ch; color: rgba(255,255,255,0.75); margin-bottom: 36px;
   }
 
-  .progress {
-    position: fixed;
-    top: 0; left: 0;
-    height: 3px;
-    background: linear-gradient(to right, var(--primary-mid), var(--accent));
-    transition: width var(--dur) var(--ease);
-    z-index: 100;
+  /* ── Buttons ── */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #1754D9; color: #fff;
+    font-family: 'Barlow', system-ui, sans-serif;
+    font-size: 15px; font-weight: 600;
+    padding: 13px 24px; border-radius: 8px;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { background: #1040b8; }
+
+  /* ── Moz tag ── */
+  .moz-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    border-radius: 100px; padding: 6px 14px;
+    margin-bottom: 20px; width: fit-content;
+    font-family: 'Barlow', system-ui, sans-serif;
+    font-size: 21px; font-weight: 500;
+    color: rgba(255,255,255,0.9);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .slide, .progress { transition: none; }
+  /* ── Slide 1 ── */
+  .slide-1 {
+    background:
+      linear-gradient(to right,
+        rgba(10,31,107,0.95) 0%,
+        rgba(10,31,107,0.82) 38%,
+        rgba(10,31,107,0.45) 62%,
+        rgba(10,31,107,0.10) 80%,
+        transparent 100%
+      ),
+      url('assets/hero.jpg') center/cover no-repeat;
+  }
+  .slide-1 .content {
+    max-width: 864px; display: flex; flex-direction: column;
+    flex: 1; justify-content: center;
+    padding-bottom: clamp(32px, 4vw, 56px);
+  }
+
+  /* ── Slide 2 ── */
+  .slide-2 {
+    background: linear-gradient(135deg, #071446 0%, #0A1F6B 60%, #0D2880 100%);
+  }
+  .slide-2 .content {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    padding-bottom: clamp(24px, 3vw, 48px);
+    position: relative; z-index: 1;
+  }
+  .slide-2 .cols {
+    display: grid; grid-template-columns: 1fr 0.72fr;
+    gap: clamp(32px, 5vw, 72px); align-items: center;
+  }
+
+  /* Stat cards */
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: clamp(16px, 1.8vw, 24px);
+  }
+  .stat-card .big {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-weight: 800; font-size: clamp(36px, 4vw, 58px);
+    line-height: 1; letter-spacing: -0.01em; color: #fff;
+  }
+  .stat-card .big sup {
+    font-size: 0.45em; font-weight: 700; vertical-align: super;
+    color: rgba(255,255,255,0.5); letter-spacing: 0;
+  }
+  .stat-card .label {
+    font-size: clamp(12px, 1vw, 14px); line-height: 1.55;
+    color: rgba(255,255,255,0.55); margin-top: 8px;
+  }
+  .stat-card .source {
+    font-size: 10px; color: rgba(255,255,255,0.25);
+    margin-top: 8px; letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .stat-card.accent { background: rgba(23,84,217,0.25); border-color: rgba(23,84,217,0.4); }
+  .stat-card.accent .big { color: #7EB3FF; }
+
+  /* ── Slide 3 (fundo branco) ── */
+  .slide-3 { background: #fff; }
+  .slide-3 .logo-name { color: #0A1F6B; }
+  .slide-3 .logo-sub  { color: rgba(10,31,107,0.45); }
+  .slide-3 .topbar-label { color: rgba(10,31,107,0.4); }
+  .slide-3 .content {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    padding-bottom: clamp(32px,4vw,56px);
+  }
+
+  /* ── Nav ── */
+  .nav-bar {
+    position: fixed; bottom: 28px; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100; pointer-events: none;
+  }
+  .nav-box {
+    display: flex; align-items: center; gap: 12px;
+    pointer-events: auto;
+    background: rgba(7,20,70,0.55);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px; padding: 8px 16px;
+  }
+  .nav-dots { display: flex; align-items: center; gap: 6px; }
+  .nav-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    border: none; padding: 0; cursor: pointer;
+    transition: background 0.2s, transform 0.2s, width 0.2s;
+  }
+  .nav-dot.active { background: #fff; transform: scale(1.3); }
+  .nav-dot:hover:not(.active) { background: rgba(255,255,255,0.55); }
+  .nav-counter {
+    font-family: 'Barlow', system-ui, sans-serif;
+    font-size: 12px; font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.04em;
+    min-width: 36px; text-align: center;
+  }
+  .nav-divider {
+    width: 1px; height: 14px;
+    background: rgba(255,255,255,0.15);
+  }
+  .nav-arrow {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.7);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.15s, color 0.15s; flex-shrink: 0;
+  }
+  .nav-arrow:hover  { background: rgba(255,255,255,0.18); color: #fff; }
+  .nav-arrow:disabled { opacity: 0.2; cursor: not-allowed; }
+
+  .nav-progress {
+    position: fixed; bottom: 0; left: 0; height: 2px;
+    background: linear-gradient(to right, #1754D9, #4B8EFF);
+    transition: width 0.4s cubic-bezier(0.65,0,0.35,1); z-index: 101;
   }
 </style>
 </head>
 <body>
 
-<div class="progress" id="progress"></div>
-<div class="template-tag">Template</div>
+<div class="deck">
 
-<div class="deck" id="deck">
-
-  <!-- ══════════════════════════════════════════
-       1 · HOOK — a frase que abre tudo
-  ══════════════════════════════════════════ -->
-  <div class="slide theme-dark active">
-    <div class="spacer"></div>
-    <div class="eyebrow">D.C.T-Youths · Projecto de Vida</div>
-    <h1 class="display">
-      Nenhum talento<br>merece ser desperdiçado<br>
-      <span class="grad">por falta de orientação.</span>
-    </h1>
-    <p class="sub mt-1">
-      Há jovens com potencial, vontade e sonhos. O que lhes falta é um guia. O Projecto de Vida é esse guia — e a [EMPRESA] pode torná-lo possível.
-    </p>
-    <div class="spacer"></div>
-    <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1em; padding-top:1.5em; border-top:1px solid rgba(255,255,255,0.08); opacity:0.35; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">
-      <span>Isaías Conjo · Fundador, D.C.T-Youths</span>
-      <span>[EMPRESA]</span>
+<!-- ════════════ SLIDE 1 · CAPA ════════════ -->
+<div class="slide slide-1 active">
+  <div class="wrapper">
+    <div class="topbar">
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="assets/logo.png" alt="D.C.T-Youths" width="36" height="36" style="object-fit:contain;">
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">D.C.T-Youths</span>
+          <span class="logo-sub">Dreams Can Come True</span>
+        </div>
+      </div>
+      <div class="topbar-label">Proposta de Doação</div>
     </div>
-  </div>
 
-  <!-- ══════════════════════════════════════════
-       2 · PERSONAGEM — o jovem em vulnerabilidade
-  ══════════════════════════════════════════ -->
-  <div class="slide theme-light">
-    <div class="eyebrow">O personagem</div>
-    <h2 class="heading">Um jovem na 12ª classe.<br>Potencial de sobra.<br>Sem saber para onde ir.</h2>
-    <div class="rule"></div>
-    <div class="cols-2" style="flex:1; align-items:center; margin-top:0.5em;">
+    <div class="content">
+      <div class="moz-tag">
+        <span style="font-size:30px; line-height:1;">🇲🇿</span>
+        Moçambique
+      </div>
+
+      <h1>Investir em jovens<br>é mudar realidades<br>com propósito</h1>
+
+      <p>O apoio da sua organização garante que jovens com potencial tenham acesso à orientação certa, conteúdos práticos e experiências transformadoras que mudam&nbsp;trajetórias.</p>
+
       <div>
-        <p class="lead" style="margin-bottom:1.2em">
-          Quer ir para a universidade — mas não sabe como se candidatar. Quer trabalhar — mas nunca fez um currículo. Quer crescer — mas não tem ninguém que lhe mostre o próximo passo.
-        </p>
-        <p class="lead" style="margin-bottom:1.2em">
-          Não lhe falta inteligência. Não lhe falta vontade. Falta orientação. E sem ela, aceita qualquer caminho — não por escolha, mas por falta de opção.
-        </p>
-        <p class="lead" style="font-style:italic; color:var(--accent)">
-          A sua origem não deveria limitar o seu destino.
-        </p>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:1em;">
-        <div class="card">
-          <div class="card-quote">
-            Quero ir para a universidade. Mas não sei por onde começar.
-            <div class="src">O que o jovem que servimos pensa</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-quote">
-            Sonhar grande parece perder tempo quando ninguém te mostra como chegar lá.
-            <div class="src">O que o jovem que servimos sente</div>
-          </div>
-        </div>
+        <a href="#" class="btn-primary">
+          Saiba como apoiar
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
       </div>
     </div>
-    <div class="slide-foot"><span>dctyouths.com</span><span>Projecto de Vida</span></div>
   </div>
+</div>
 
-  <!-- ══════════════════════════════════════════
-       3 · O PROBLEMA — três camadas
-  ══════════════════════════════════════════ -->
-  <div class="slide theme-dark">
-    <div class="eyebrow">O problema</div>
-    <h2 class="heading">O problema não é falta<br>de talento. É falta<br>de orientação.</h2>
-    <div class="rule"></div>
-    <div class="problem-list">
-      <div class="problem-row">
-        <span class="problem-badge">Externo</span>
-        <p class="problem-text">Jovens na 11ª e 12ª classe <strong>terminam a escola sem saber como planear o futuro,</strong> aceder a bolsas, construir um currículo ou encontrar oportunidades — porque nunca ninguém lhes explicou.</p>
+<!-- ════════════ SLIDE 2 · CONTEXTO ════════════ -->
+<div class="slide slide-2">
+  <div class="wrapper">
+    <div class="topbar">
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="assets/logo.png" alt="D.C.T-Youths" width="36" height="36" style="object-fit:contain;">
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">D.C.T-Youths</span>
+          <span class="logo-sub">Dreams Can Come True</span>
+        </div>
       </div>
-      <div class="problem-row">
-        <span class="problem-badge">Interno</span>
-        <p class="problem-text">Com o tempo, <strong>a esperança começa a desaparecer.</strong> O jovem aprende apenas a sobreviver, em vez de construir o futuro que poderia ter. Deixa de acreditar no próprio potencial.</p>
-      </div>
-      <div class="problem-row">
-        <span class="problem-badge">Filosófico</span>
-        <p class="problem-text">É injusto que <strong>a origem determine o destino.</strong> Que talentos que poderiam gerar novas oportunidades para comunidades inteiras fiquem escondidos — simplesmente por falta de um guia.</p>
-      </div>
+      <div class="topbar-label">Proposta de Doação</div>
     </div>
-    <div class="slide-foot"><span>dctyouths.com</span><span>Projecto de Vida</span></div>
-  </div>
 
-  <!-- ══════════════════════════════════════════
-       4 · O GUIA — Projecto de Vida: empatia + autoridade
-  ══════════════════════════════════════════ -->
-  <div class="slide theme-white">
-    <div class="eyebrow">O guia</div>
-    <h2 class="heading">O Projecto de Vida<br>é o guia que este<br>jovem precisa.</h2>
-    <div class="rule"></div>
-    <div class="cols-2" style="flex:1; align-items:center; margin-top:0.5em;">
-      <div>
-        <p class="lead" style="margin-bottom:1.2em">
-          Não chegamos com teoria. O <strong style="color:var(--text); font-weight:600">Projecto de Vida</strong> é um programa estruturado de desenvolvimento pessoal, gestão de tempo e orientação de carreira — criado por quem viveu a mesma realidade.
-        </p>
-        <p class="lead" style="margin-bottom:1.2em">
-          Em 5 meses e 19 sessões semanais, transformamos dúvida em clareza, sonho em plano e plano em passos concretos. Com mentores reais, convidados especiais e acompanhamento próximo.
-        </p>
-        <p class="lead" style="font-style:italic; color:var(--accent)">
-          "Sonhos não são discutidos — são realizados."
-        </p>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:0.9em;">
-        <div class="card card-stat">
-          <div class="num">+200</div>
-          <div class="lbl">Jovens orientados</div>
-          <div class="desc">Programa 2025–2026 · Moçambique e Brasil</div>
-        </div>
-        <div class="card card-stat">
-          <div class="num">+25</div>
-          <div class="lbl">Estudantes formados</div>
-          <div class="desc">Que continuam os seus estudos até hoje</div>
-        </div>
-        <div class="card card-stat">
-          <div class="num">+15</div>
-          <div class="lbl">Voluntários activos</div>
-          <div class="desc">+200 horas geradas · +150 candidaturas</div>
-        </div>
-      </div>
-    </div>
-    <div class="slide-foot"><span>dctyouths.com</span><span>Projecto de Vida</span></div>
-  </div>
+    <div class="content">
+      <div class="cols">
 
-  <!-- ══════════════════════════════════════════
-       5 · O PLANO — como o guia chega ao jovem
-  ══════════════════════════════════════════ -->
-  <div class="slide theme-light">
-    <div class="eyebrow">O plano</div>
-    <h2 class="heading">Como a [EMPRESA]<br>leva o guia<br>a 24 jovens.</h2>
-    <div class="rule"></div>
-    <div class="cols-2" style="flex:1; align-items:center; margin-top:0.5em; gap:clamp(24px,5vw,80px);">
-      <div class="step-list">
-        <div class="step">
-          <div class="step-num">01</div>
-          <div>
-            <div class="step-title">Encontro de alinhamento</div>
-            <div class="step-desc">Apresentamos o programa em detalhe, alinhamos expectativas e respondemos a todas as questões da [EMPRESA].</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">02</div>
-          <div>
-            <div class="step-title">Confirmação da parceria</div>
-            <div class="step-desc">A [EMPRESA] confirma o apoio. Cuidamos de toda a logística — materiais, mentores, espaço e comunicação.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">03</div>
-          <div>
-            <div class="step-title">19 sessões que mudam vidas</div>
-            <div class="step-desc">Em 5 meses, 24 jovens descobrem quem são, constroem o seu plano de carreira e terminam com currículo, rede e propósito.</div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="card">
-          <div style="font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-soft); margin-bottom:1em">O programa em números</div>
-          <div class="data-table">
-            <div class="data-row"><span>Duração</span><strong>5 meses · 19 sessões</strong></div>
-            <div class="data-row"><span>Frequência</span><strong>1× por semana · 45 min</strong></div>
-            <div class="data-row"><span>Participantes</span><strong>24 jovens por edição</strong></div>
-            <div class="data-row"><span>Mentores</span><strong>5 voluntários</strong></div>
-            <div class="data-row"><span>Módulos</span><strong>Desenvolvimento pessoal, gestão de tempo, carreira</strong></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="slide-foot"><span>dctyouths.com</span><span>Projecto de Vida</span></div>
-  </div>
-
-  <!-- ══════════════════════════════════════════
-       6 · CHAMADA À ACÇÃO — o pedido claro
-  ══════════════════════════════════════════ -->
-  <div class="slide theme-brand">
-    <div class="eyebrow">Chamada à acção</div>
-    <h2 class="heading" style="color:#fff">O que pedimos<br>à [EMPRESA]</h2>
-    <div class="rule"></div>
-    <div class="cols-2" style="flex:1; align-items:center; margin-top:0.5em; gap:clamp(24px,5vw,72px);">
-      <div>
-        <p class="lead" style="margin-bottom:1.5em">
-          Uma contribuição que financia o guia — e garante que 24 jovens não chegam ao fim da escola sem saber para onde ir.
-        </p>
-        <ul class="arrow-list">
-          <li>Todo o material escolar para 24 participantes</li>
-          <li>Lanche garantido em cada um dos 19 encontros</li>
-          <li>Transporte dos voluntários mentores</li>
-          <li>Conteúdo de redes sociais com a marca da [EMPRESA]</li>
-          <li>Relatório de impacto com indicadores, histórias e fotos</li>
-          <li>Acesso a uma rede de +20 mentores profissionais</li>
-        </ul>
-      </div>
-      <div class="amount-box">
-        <div style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:0.75em">Contribuição total</div>
-        <div class="amount">R$ 5.891</div>
-        <div class="breakdown">
-          Material escolar · R$ 140<br>
-          Lanche (19 encontros × 24 pessoas) · R$ 190<br>
-          Transporte voluntários · R$ 25
-        </div>
-        <div class="note">
-          ≈ R$ 245 por jovem · 5 meses de programa<br>
-          <span style="opacity:.7">Ou equivalente em apoio em espécie:<br>materiais, espaço ou expertise profissional.</span>
-        </div>
-      </div>
-    </div>
-    <div class="slide-foot"><span>dctyouths.com</span><span>Projecto de Vida</span></div>
-  </div>
-
-  <!-- ══════════════════════════════════════════
-       7 · FRACASSO vs SUCESSO — o jovem com e sem guia
-  ══════════════════════════════════════════ -->
-  <div class="slide theme-split">
-    <div class="split-grid">
-
-      <div class="split-col">
+        <!-- Coluna esquerda: texto + stats + cards -->
         <div>
-          <div class="eyebrow" style="background:rgba(239,68,68,.15); color:#fca5a5">Sem o Projecto de Vida</div>
-          <h3 style="font-family:var(--f-display); font-weight:700; font-size:clamp(20px,2.8vw,36px); line-height:1.2; color:rgba(255,255,255,0.65); margin-top:0.5em">O jovem sem guia</h3>
-        </div>
-        <span class="outcome-badge badge-fail">O que acontece</span>
-        <ul class="outcome-list fail-list">
-          <li>Termina a escola sem um plano de carreira</li>
-          <li>Aceita qualquer caminho por falta de opção</li>
-          <li>A confiança apaga-se — e o sonho também</li>
-          <li>As oportunidades passam sem que ele as reconheça</li>
-          <li>A realidade difícil em que nasceu é a que entrega à próxima geração</li>
-        </ul>
-      </div>
+          <div style="font-size:10px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:10px;">Contexto · Moçambique</div>
+          <h2 style="font-size:clamp(24px,3vw,40px); margin-bottom:6px; line-height:1.25; max-width:32ch;">A falta de orientação profissional dificulta caminhos para o futuro</h2>
 
-      <div class="split-col">
-        <div>
-          <div class="eyebrow" style="background:rgba(16,185,129,.15); color:#6ee7b7">Com o Projecto de Vida</div>
-          <h3 style="font-family:var(--f-display); font-weight:700; font-size:clamp(20px,2.8vw,36px); line-height:1.2; color:#fff; margin-top:0.5em">O jovem com guia</h3>
-        </div>
-        <span class="outcome-badge badge-success">A transformação</span>
-        <ul class="outcome-list success-list">
-          <li>Sabe quem é, o que quer e como chegar lá</li>
-          <li>Tem currículo, plano de carreira e acesso a bolsas</li>
-          <li>Constrói uma rede de mentores e referências profissionais</li>
-          <li>Lidera a própria jornada — e inspira quem está ao seu lado</li>
-          <li>Torna-se o efeito em cadeia que transforma a comunidade</li>
-        </ul>
-      </div>
+          <!-- 3 stats horizontais -->
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid rgba(255,255,255,0.1); margin-bottom:16px;">
+            <div style="padding:12px 16px 12px 0; border-right:1px solid rgba(255,255,255,0.1);">
+              <div style="font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(37px,3.96vw,57px); line-height:1; color:#fff;">65<span style="font-size:0.42em; vertical-align:super; color:rgba(255,255,255,0.4); font-weight:700;">%</span></div>
+              <div style="font-size:clamp(11.5px,.98vw,14px); color:rgba(255,255,255,0.55); line-height:1.4; margin-top:4px;">tentaram encontrar emprego sem sucesso</div>
+              <div style="font-size:10px; color:#1755D9; margin-top:4px; letter-spacing:0.05em; text-transform:uppercase;">Afrobarometer · 2025</div>
+            </div>
+            <div style="padding:12px 16px; border-right:1px solid rgba(255,255,255,0.1);">
+              <div style="font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(37px,3.96vw,57px); line-height:1; color:#fff;">30<span style="font-size:0.42em; vertical-align:super; color:rgba(255,255,255,0.4); font-weight:700;">%</span></div>
+              <div style="font-size:clamp(11.5px,.98vw,14px); color:rgba(255,255,255,0.55); line-height:1.4; margin-top:4px;">não estudam, não trabalham, não se formam</div>
+              <div style="font-size:10px; color:#1755D9; margin-top:4px; letter-spacing:0.05em; text-transform:uppercase;">UN Women · 2022</div>
+            </div>
+            <div style="padding:12px 0 12px 16px;">
+              <div style="font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(37px,3.96vw,57px); line-height:1; color:#fff;">32<span style="font-size:0.42em; vertical-align:super; color:rgba(255,255,255,0.4); font-weight:700;">%</span></div>
+              <div style="font-size:clamp(11.5px,.98vw,14px); color:rgba(255,255,255,0.55); line-height:1.4; margin-top:4px;">conclui o ensino secundário — 1 em cada 3</div>
+              <div style="font-size:10px; color:#1755D9; margin-top:4px; letter-spacing:0.05em; text-transform:uppercase;">World Bank / UNESCO · 2023</div>
+            </div>
+          </div>
 
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════
-       8 · FECHO — próximo passo
-  ══════════════════════════════════════════ -->
-  <div class="slide theme-dark">
-    <div class="spacer"></div>
-    <div class="eyebrow">O próximo passo</div>
-    <h2 class="display" style="max-width:14ch">
-      A [EMPRESA]<br>pode ser a razão<br><span class="grad">por que um jovem<br>acredita no futuro.</span>
-    </h2>
-    <div class="rule"></div>
-    <div class="cols-2" style="margin-top:1.2em; align-items:start; gap:clamp(24px,5vw,72px);">
-      <ul class="arrow-list">
-        <li>Responda a este convite — acordemos uma data</li>
-        <li>Reunião de 30 minutos para alinhar os detalhes</li>
-        <li>Confirmação da parceria e arranque do programa</li>
-        <li>Primeiro relatório de impacto ao fim do mês 1</li>
-      </ul>
-      <div>
-        <div style="margin-bottom:1.4em">
-          <div style="font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:0.5em">Contacto</div>
-          <div style="font-family:var(--f-display); font-size:clamp(18px,2vw,26px); font-weight:600; color:#fff">Isaías Conjo</div>
-          <div style="font-size:clamp(13px,1.1vw,15px); color:rgba(255,255,255,0.45); margin-top:0.35em; line-height:2">
-            halleyconjo@gmail.com<br>dctyouths.com
+          <!-- 4 cards 2×2 -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09); border-radius:10px; padding:12px; display:flex; gap:10px; align-items:flex-start;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+              <div><div style="font-size:clamp(13px,1.04vw,15px); font-weight:700; color:#fff; margin-bottom:3px;">Direção</div><div style="font-size:clamp(11.5px,.92vw,14px); color:rgba(255,255,255,0.45); line-height:1.5;">Não sabem o que fazer após o ensino médio ou início da universidade.</div></div>
+            </div>
+            <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09); border-radius:10px; padding:12px; display:flex; gap:10px; align-items:flex-start;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <div><div style="font-size:clamp(13px,1.04vw,15px); font-weight:700; color:#fff; margin-bottom:3px;">Clareza</div><div style="font-size:clamp(11.5px,.92vw,14px); color:rgba(255,255,255,0.45); line-height:1.5;">Falta-lhes clareza sobre talentos e possibilidades reais de carreira.</div></div>
+            </div>
+            <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09); border-radius:10px; padding:12px; display:flex; gap:10px; align-items:flex-start;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+              <div><div style="font-size:clamp(13px,1.04vw,15px); font-weight:700; color:#fff; margin-bottom:3px;">Decisão</div><div style="font-size:clamp(11.5px,.92vw,14px); color:rgba(255,255,255,0.45); line-height:1.5;">Têm medo de errar na escolha e se arrepender pelo caminho que seguiram.</div></div>
+            </div>
+            <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.09); border-radius:10px; padding:12px; display:flex; gap:10px; align-items:flex-start;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              <div><div style="font-size:clamp(13px,1.04vw,15px); font-weight:700; color:#fff; margin-bottom:3px;">Foco</div><div style="font-size:clamp(11.5px,.92vw,14px); color:rgba(255,255,255,0.45); line-height:1.5;">Têm dificuldade para organizar o tempo e tirar os planos do papel.</div></div>
+            </div>
           </div>
         </div>
-        <div style="padding-top:1.2em; border-top:1px solid rgba(255,255,255,0.08)">
-          <div style="font-family:var(--f-display); font-style:italic; font-size:clamp(13px,1.3vw,18px); font-weight:400; color:rgba(255,255,255,0.4); line-height:1.65">
-            "Sonhos não são discutidos — são realizados."<br>Dreams Can Come True.
+
+        <!-- Coluna direita: foto com texto sobreposto -->
+        <div style="border-radius:14px; overflow:hidden; position:relative; height:clamp(280px,52vh,500px);">
+          <img src="assets/slide2-bg.jpg" alt="Jovens em Moçambique" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;">
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(7,20,70,0.85) 0%, rgba(7,20,70,0.2) 50%, transparent 100%);"></div>
+          <div style="position:absolute; bottom:20px; left:20px; right:20px; background:rgba(255,255,255,0.12); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:16px 18px;">
+            <p style="font-size:clamp(12px,1.08vw,15px); color:rgba(255,255,255,0.92); line-height:1.55; margin:0 0 8px;">"Muitos jovens cheios de potencial terminam os estudos sem saber como planejar e construir a carreira."</p>
+            <p style="font-size:clamp(11px,1vw,13px); color:rgba(255,255,255,0.5); margin:0; font-weight:500; letter-spacing:0.03em;">— Isaias Conjo (Fundador D.C.T-Youths)</p>
           </div>
         </div>
+
       </div>
     </div>
-    <div class="spacer"></div>
-    <div style="font-size:10px; color:rgba(255,255,255,0.2); letter-spacing:0.12em; text-transform:uppercase; text-align:center; padding-bottom:0.3em">
-      D.C.T-Youths · Projecto de Vida · dctyouths.com
+  </div>
+</div>
+
+<!-- ════════════ SLIDE 3 ════════════ -->
+<div class="slide slide-3">
+  <div class="wrapper">
+    <div class="topbar">
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="assets/logo.png" alt="D.C.T-Youths" width="36" height="36" style="object-fit:contain;">
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">D.C.T-Youths</span>
+          <span class="logo-sub">Dreams Can Come True</span>
+        </div>
+      </div>
+      <div class="topbar-label">Proposta de Doação</div>
+    </div>
+    <div class="content">
+      <!-- conteúdo a definir -->
     </div>
   </div>
+</div>
 
 </div><!-- /deck -->
 
-<nav class="controls" aria-label="Navegação de slides">
-  <button class="btn-nav" id="btn-prev" aria-label="Anterior">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M9 11L5 7L9 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
-  <span class="counter" id="counter">1 / 8</span>
-  <button class="btn-nav" id="btn-next" aria-label="Próximo">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-      <path d="M5 3L9 7L5 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
+<!-- Barra de progresso -->
+<div class="nav-progress" id="progress"></div>
+
+<!-- Navegação rodapé -->
+<nav class="nav-bar" aria-label="Navegação de slides">
+  <div class="nav-box">
+    <button class="nav-arrow" id="btn-prev" aria-label="Slide anterior">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="nav-dots" id="nav-dots"></div>
+    <div class="nav-divider"></div>
+    <span class="nav-counter" id="nav-counter">1 / 1</span>
+    <button class="nav-arrow" id="btn-next" aria-label="Próximo slide">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
 </nav>
 
 <script>
-  const slides  = Array.from(document.querySelectorAll('.slide'));
-  const counter  = document.getElementById('counter');
+  const slides   = Array.from(document.querySelectorAll('.slide'));
+  const total    = slides.length;
+  const progress = document.getElementById('progress');
+  const dotsEl   = document.getElementById('nav-dots');
+  const counter  = document.getElementById('nav-counter');
   const btnPrev  = document.getElementById('btn-prev');
   const btnNext  = document.getElementById('btn-next');
-  const progress = document.getElementById('progress');
-  const total    = slides.length;
   let cur = 0;
 
-  function goTo(n) {
-    if (n < 0 || n >= total) return;
-    slides[cur].classList.remove('active');
-    cur = n;
-    slides[cur].classList.add('active');
-    counter.textContent = `${cur + 1} / ${total}`;
-    progress.style.width = `${((cur + 1) / total) * 100}%`;
-    btnPrev.disabled = cur === 0;
-    btnNext.disabled = cur === total - 1;
-  }
+  const dots = slides.map((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    btn.setAttribute('aria-label', `Slide ${i + 1}`);
+    btn.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(btn);
+    return btn;
+  });
 
   btnPrev.addEventListener('click', () => goTo(cur - 1));
   btnNext.addEventListener('click', () => goTo(cur + 1));
 
+  function goTo(n) {
+    if (n < 0 || n >= total) return;
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+    progress.style.width = `${((cur + 1) / total) * 100}%`;
+    counter.textContent = `${cur + 1} / ${total}`;
+    sessionStorage.setItem('slide', cur);
+    btnPrev.disabled = cur === 0;
+    btnNext.disabled = cur === total - 1;
+  }
+
   document.addEventListener('keydown', e => {
-    const d = { ArrowRight:1, ArrowDown:1, ' ':1, ArrowLeft:-1, ArrowUp:-1 }[e.key];
-    if (d !== undefined) { e.preventDefault(); goTo(cur + d); }
-    else if (e.key === 'Home') goTo(0);
-    else if (e.key === 'End')  goTo(total - 1);
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault(); goTo(cur + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault(); goTo(cur - 1);
+    } else if (e.key === 'Home') goTo(0);
+    else if (e.key === 'End') goTo(total - 1);
   });
 
   let tx = 0;
@@ -891,8 +437,9 @@
     if (Math.abs(dx) > 48) goTo(cur + (dx > 0 ? 1 : -1));
   }, { passive: true });
 
-  btnPrev.disabled = true;
-  progress.style.width = `${(1 / total) * 100}%`;
+  const saved = parseInt(sessionStorage.getItem('slide') || '0', 10);
+  goTo(saved >= 0 && saved < total ? saved : 0);
 </script>
+
 </body>
 </html>
