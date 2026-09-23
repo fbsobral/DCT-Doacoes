@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Projecto de Vida · D.C.T-Youths</title>
+<title>Projeto de Vida · D.C.T-Youths</title>
 <link rel="icon" type="image/png" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -163,7 +163,7 @@
   .stat-card.accent .big { color: #7EB3FF; }
 
   /* ── Slide 3 (fundo branco) ── */
-  .slide-3 { background: #fff; }
+  .slide-3 { background: #E8EAF0; }
   .slide-3 .logo-name { color: #0A1F6B; }
   .slide-3 .logo-sub  { color: rgba(10,31,107,0.45); }
   .slide-3 .topbar-label { color: rgba(10,31,107,0.4); }
@@ -221,6 +221,41 @@
     position: fixed; bottom: 0; left: 0; height: 2px;
     background: linear-gradient(to right, #1754D9, #4B8EFF);
     transition: width 0.4s cubic-bezier(0.65,0,0.35,1); z-index: 101;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    /* Slides scrolláveis no mobile */
+    .slide { overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+    .wrapper { height: auto; min-height: 100%; padding-inline: 20px; }
+
+    /* Topbar */
+    .topbar { padding-top: 18px; gap: 8px; }
+    .logo-name { font-size: 20px; }
+    .logo-sub { font-size: 9px; letter-spacing: 0.1em; }
+    .topbar-label { font-size: 10px; letter-spacing: 0.1em; }
+
+    /* Paragráfos sem max-width */
+    p { max-width: none; margin-bottom: 24px; }
+
+    /* Conteúdo com padding inferior para não ficar atrás da nav */
+    .slide-1 .content,
+    .slide-2 .content,
+    .slide-3 .content { padding-bottom: 90px; justify-content: flex-start; padding-top: 24px; }
+
+    /* ── Slide 2 ── */
+    .slide-2 .cols { grid-template-columns: 1fr; gap: 24px; }
+    .stat-grid { gap: 10px; }
+
+    /* ── Slide 3 ── */
+    .s3-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .s3-left { order: 1 !important; }
+    .s3-right { order: 2 !important; }
+    .s3-stats { grid-template-columns: repeat(2,1fr) !important; gap: 18px 12px !important; }
+
+    /* Nav */
+    .nav-bar { bottom: 14px; }
+    .nav-box { padding: 7px 12px; gap: 8px; }
   }
 </style>
 </head>
@@ -331,7 +366,9 @@
         </div>
 
         <!-- Coluna direita: foto com texto sobreposto -->
-        <div style="border-radius:14px; overflow:hidden; position:relative; height:clamp(280px,52vh,500px);">
+        <div style="position:relative;">
+          <div style="position:absolute; inset:-18px; background:#1755D9; border-radius:22px; opacity:0.45; filter:blur(28px);"></div>
+        <div style="border-radius:14px; overflow:hidden; position:relative; height:clamp(280px,52vh,500px); z-index:1;">
           <img src="assets/slide2-bg.jpg" alt="Jovens em Moçambique" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;">
           <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(7,20,70,0.85) 0%, rgba(7,20,70,0.2) 50%, transparent 100%);"></div>
           <div style="position:absolute; bottom:20px; left:20px; right:20px; background:rgba(255,255,255,0.12); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:16px 18px;">
@@ -339,6 +376,7 @@
             <p style="font-size:clamp(11px,1vw,13px); color:rgba(255,255,255,0.5); margin:0; font-weight:500; letter-spacing:0.03em;">— Isaias Conjo (Fundador D.C.T-Youths)</p>
           </div>
         </div>
+        </div><!-- /shadow wrapper -->
 
       </div>
     </div>
@@ -360,11 +398,191 @@
       </div>
       <div class="topbar-label">Proposta de Doação</div>
     </div>
-    <div class="content">
-      <!-- conteúdo a definir -->
-    </div>
+    <div class="content" style="padding-bottom:clamp(24px,3vw,48px);">
+
+      <div class="s3-grid" style="display:grid; grid-template-columns:1fr 0.85fr; gap:clamp(32px,5vw,72px); align-items:start;">
+
+        <!-- Carrossel de artigos -->
+        <div class="s3-right" style="order:2; min-width:0;">
+
+          <!-- Tag + seta -->
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+            <div style="display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid rgba(10,31,107,0.1); border-radius:24px; padding:10px 22px; font-size:clamp(10px,0.95vw,13px); font-weight:700; color:#0A1F6B; letter-spacing:0.06em; text-transform:uppercase;">
+              Uma inspiração do
+              <!-- Brasil -->
+              <svg width="32" height="22" viewBox="0 0 32 22" xmlns="http://www.w3.org/2000/svg" style="border-radius:3px; display:block; flex-shrink:0;">
+                <rect width="32" height="22" fill="#009C3B"/>
+                <polygon points="16,3 30,11 16,19 2,11" fill="#FFDF00"/>
+                <circle cx="16" cy="11" r="5.2" fill="#002776"/>
+                <rect x="10.8" y="10.2" width="10.4" height="1.6" fill="#fff" rx="0.8"/>
+              </svg>
+              para
+              <!-- Moçambique -->
+              <svg width="32" height="22" viewBox="0 0 32 22" xmlns="http://www.w3.org/2000/svg" style="border-radius:3px; display:block; flex-shrink:0;">
+                <rect width="32" height="22" fill="#009A44"/>
+                <rect y="7.3" width="32" height="7.4" fill="#1a1a1a"/>
+                <rect y="7.3" width="32" height="1" fill="#FCB514"/>
+                <rect y="13.7" width="32" height="1" fill="#FCB514"/>
+                <polygon points="0,0 13,11 0,22" fill="#CE1126"/>
+                <polygon points="6.5,6.5 7.7,10.1 11.5,10.1 8.4,12.3 9.6,15.9 6.5,13.7 3.4,15.9 4.6,12.3 1.5,10.1 5.3,10.1" fill="#FCB514"/>
+              </svg>
+            </div>
+            <div style="width:42px; height:42px; background:#1755D9; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            </div>
+          </div>
+
+          <!-- Browser card -->
+          <div id="s3-card" style="background:#fff; border-radius:14px; border:1px solid rgba(0,0,0,0.08); overflow:hidden; box-shadow:0 4px 24px rgba(10,31,107,0.08); width:100%;">
+            <!-- browser chrome -->
+            <div style="background:#F2F4F7; border-bottom:1px solid rgba(0,0,0,0.07); padding:10px 16px; display:flex; align-items:center; gap:10px;">
+              <div style="display:flex; gap:5px;">
+                <div style="width:10px; height:10px; border-radius:50%; background:#FF5F57;"></div>
+                <div style="width:10px; height:10px; border-radius:50%; background:#FEBC2E;"></div>
+                <div style="width:10px; height:10px; border-radius:50%; background:#28C840;"></div>
+              </div>
+              <div id="s3-url" style="flex:1; min-width:0; background:#E2E4EA; border-radius:6px; padding:4px 12px; font-size:13px; color:#6B7280; text-align:center; font-family:'Barlow',sans-serif; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></div>
+            </div>
+            <!-- article body -->
+            <div style="padding:clamp(20px,2.5vw,32px); min-height:clamp(240px,30vh,340px);">
+              <div id="s3-source" style="font-size:14px; font-weight:700; letter-spacing:0.04em; margin-bottom:12px;"></div>
+              <div id="s3-title" style="font-size:clamp(18px,1.92vw,24px); font-weight:700; color:#111; line-height:1.35; margin-bottom:10px; font-family:'Barlow',sans-serif;"></div>
+              <div id="s3-excerpt" style="font-size:clamp(14px,1.32vw,17px); color:#555; line-height:1.65; margin-bottom:16px; font-family:'Barlow',sans-serif;"></div>
+              <span id="s3-meta" style="font-size:13px; color:#9CA3AF; font-family:'Barlow',sans-serif;"></span>
+            </div>
+          </div>
+
+          <!-- Nav do carrossel -->
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:16px; padding:0 2px;">
+            <div style="display:flex; gap:6px; align-items:center;">
+              <button onclick="s3Go(0)" id="s3-dot-0" style="width:8px; height:8px; border-radius:50%; border:none; padding:0; cursor:pointer; transition:all .2s;"></button>
+              <button onclick="s3Go(1)" id="s3-dot-1" style="width:8px; height:8px; border-radius:50%; border:none; padding:0; cursor:pointer; transition:all .2s;"></button>
+              <button onclick="s3Go(2)" id="s3-dot-2" style="width:8px; height:8px; border-radius:50%; border:none; padding:0; cursor:pointer; transition:all .2s;"></button>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button onclick="s3Go(s3cur-1)" style="width:32px; height:32px; border-radius:50%; border:1px solid rgba(10,31,107,0.15); background:#fff; color:#0A1F6B; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button onclick="s3Go(s3cur+1)" style="width:32px; height:32px; border-radius:50%; border:1px solid rgba(10,31,107,0.15); background:#fff; color:#0A1F6B; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna esquerda: título + intro + stats em 2 colunas -->
+        <div class="s3-left" style="order:1; display:flex; flex-direction:column; gap:clamp(18px,2.2vw,30px);">
+
+          <!-- Título -->
+          <div>
+            <div style="font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:rgba(10,31,107,0.35); margin-bottom:8px;">Nossa contribuição</div>
+            <h2 style="font-size:clamp(26px,3.5vw,48px); color:#0A1F6B; line-height:1.1; margin:0;"><span style="font-weight:300;">Conheça o </span><span style="font-weight:700;">Projeto de Vida</span></h2>
+          </div>
+
+          <!-- Texto introdutório -->
+          <p style="font-size:clamp(13px,1.2vw,16.5px); color:rgba(10,31,107,0.7); line-height:1.7; margin:0; max-width:none;">O <strong style="color:#0A1F6B;">Projeto de Vida</strong> é um eixo pedagógico focado no autoconhecimento: ajuda o jovem a entender a sua identidade, valores e talentos — e a construir um plano concreto nas dimensões pessoal, social e profissional. Obrigatório em todas as escolas de Ensino Médio do Brasil desde 2022, a DCT-Youths adapta essa metodologia para a realidade de Marracuene.</p>
+
+        <div class="s3-stats" style="display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,1.8vw,24px) clamp(10px,1.2vw,16px); align-content:start;">
+
+          <div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">5 meses</div>
+            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">Janeiro a Junho</div>
+            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Duração</div>
+          </div>
+
+          <div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">1× por semana</div>
+            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">19 sessões no total</div>
+            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Frequência</div>
+          </div>
+
+          <div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">45 minutos</div>
+            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">por encontro</div>
+            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Carga horária</div>
+          </div>
+
+          <div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">11ª–12ª classe</div>
+            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">jovens de 16 a 19 anos</div>
+            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Público-alvo</div>
+          </div>
+
+          <div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">30 jovens</div>
+            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">por turma</div>
+            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Tamanho da turma</div>
+          </div>
+
+          <div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">Presencial</div>
+            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">Marracuene, Moçambique</div>
+            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Formato</div>
+          </div>
+
+        </div><!-- /stats grid -->
+        </div><!-- /left col flex -->
+
+      </div><!-- /main grid -->
+    </div><!-- /content -->
   </div>
 </div>
+
+<script>
+  const s3articles = [
+    {
+      url: 'www1.folha.uol.com.br',
+      source: 'Folha de S.Paulo',
+      sourceColor: '#EC0202',
+      title: 'Professora usa projeto de vida para transformar futuros na rede pública',
+      excerpt: 'Iniciativa em escola estadual mostra como a orientação vocacional ajuda alunos a definirem metas, aumenta a permanência escolar e reduz a sensação de deriva entre jovens do ensino médio.',
+      meta: 'out/2025',
+      href: 'https://www1.folha.uol.com.br/educacao/2025/10/professora-usa-projeto-de-vida-para-transformar-futuros-na-rede-publica.shtml'
+    },
+    {
+      url: 'www.estadao.com.br',
+      source: 'Estadão',
+      sourceColor: '#003478',
+      title: 'Projeto de vida na escola ajuda jovens a planejar o futuro',
+      excerpt: 'Pesquisas mostram que estudantes que passam por programas estruturados de orientação profissional apresentam maior clareza sobre escolhas de carreira e menor índice de evasão escolar.',
+      meta: '2025',
+      href: 'https://www.estadao.com.br/educacao/projeto-de-vida-na-escola-ajuda-jovens-a-planejar-o-futuro/'
+    },
+    {
+      url: 'www.fadc.org.br',
+      source: 'FADC',
+      sourceColor: '#0A6E3F',
+      title: 'Orientação de carreira como ferramenta de transformação para jovens vulneráveis',
+      excerpt: 'A ausência de referências profissionais é um dos principais fatores de exclusão entre jovens de comunidades periféricas. Programas de projeto de vida surgem como resposta estruturada a essa lacuna.',
+      meta: 'FADC.org.br',
+      href: 'https://www.fadc.org.br/es/node/2271'
+    }
+  ];
+  let s3cur = 0;
+
+  function s3Go(n) {
+    s3cur = (n + 3) % 3;
+    const a = s3articles[s3cur];
+    document.getElementById('s3-url').textContent = a.url;
+    document.getElementById('s3-source').textContent = a.source;
+    document.getElementById('s3-source').style.color = a.sourceColor;
+    document.getElementById('s3-title').textContent = a.title;
+    document.getElementById('s3-excerpt').textContent = a.excerpt;
+    document.getElementById('s3-meta').textContent = a.meta;
+    [0,1,2].forEach(i => {
+      const d = document.getElementById('s3-dot-' + i);
+      d.style.background = i === s3cur ? '#1755D9' : 'rgba(10,31,107,0.2)';
+      d.style.transform = i === s3cur ? 'scale(1.3)' : 'scale(1)';
+    });
+  }
+  s3Go(0);
+</script>
 
 </div><!-- /deck -->
 
