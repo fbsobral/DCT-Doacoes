@@ -1034,15 +1034,16 @@
   btnPrev.addEventListener('click', () => goTo(cur - 1));
   btnNext.addEventListener('click', () => goTo(cur + 1));
 
-  const slideRoutes = [
-    { path: '/projecto-de-vida/template/capa',          title: 'Slide 1 · Capa' },
-    { path: '/projecto-de-vida/template/contexto',       title: 'Slide 2 · Contexto' },
-    { path: '/projecto-de-vida/template/projeto-de-vida',title: 'Slide 3 · Projeto de Vida' },
-    { path: '/projecto-de-vida/template/cronograma',     title: 'Slide 4 · Cronograma' },
-    { path: '/projecto-de-vida/template/sobre',          title: 'Slide 5 · Sobre a DCT' },
-    { path: '/projecto-de-vida/template/parceria',       title: 'Slide 6 · Parceria' },
-    { path: '/projecto-de-vida/template/vamos-juntos',   title: 'Slide 7 · Vamos Juntos' },
+  const basePath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '');
+  const slideSlugs = ['capa', 'contexto', 'projeto-de-vida', 'cronograma', 'sobre', 'parceria', 'vamos-juntos'];
+  const slideTitles = [
+    'Slide 1 · Capa', 'Slide 2 · Contexto', 'Slide 3 · Projeto de Vida',
+    'Slide 4 · Cronograma', 'Slide 5 · Sobre a DCT', 'Slide 6 · Parceria', 'Slide 7 · Vamos Juntos',
   ];
+  const slideRoutes = slideSlugs.map((slug, i) => ({
+    path: `${basePath}/${slug}`,
+    title: slideTitles[i],
+  }));
 
   function goTo(n) {
     if (n < 0 || n >= total) return;
