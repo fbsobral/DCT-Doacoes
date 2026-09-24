@@ -210,8 +210,9 @@
   /* ── Slide 6 (navy) ── */
   .slide-6 { background: linear-gradient(135deg, #071446 0%, #0A1F6B 60%, #0D2880 100%); }
 
-  /* ── Slide 7 (imagem + gradiente esquerda) ── */
-  .slide-7 {
+  /* ── Slide 7 (imagem carregada via JS lazy) ── */
+  .slide-7 { background-color: #0A1F6B; }
+  .slide-7.bg-loaded {
     background:
       linear-gradient(to right,
         rgba(10,31,107,0.95) 0%,
@@ -449,7 +450,7 @@
         <div style="position:relative;">
           <div style="position:absolute; inset:-18px; background:#1755D9; border-radius:22px; opacity:0.45; filter:blur(28px);"></div>
         <div style="border-radius:14px; overflow:hidden; position:relative; height:clamp(280px,52vh,500px); z-index:1;">
-          <img src="assets/slide2-bg.jpg" alt="Jovens em Moçambique" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;">
+          <img src="assets/slide2-bg.jpg" alt="Jovens em Moçambique" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;">
           <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(7,20,70,0.85) 0%, rgba(7,20,70,0.2) 50%, transparent 100%);"></div>
           <div style="position:absolute; bottom:20px; left:20px; right:20px; background:rgba(255,255,255,0.12); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:16px 18px;">
             <p style="font-size:clamp(12px,1.08vw,15px); color:rgba(255,255,255,0.92); line-height:1.55; margin:0 0 8px;">"Muitos jovens cheios de potencial terminam os estudos sem saber como planejar e construir a carreira."</p>
@@ -793,10 +794,10 @@
             <p style="font-size:clamp(13px,1.2vw,16px); color:rgba(10,31,107,0.7); line-height:1.75; margin:0 0 clamp(14px,1.6vw,20px); max-width:none;">Somos uma organização sem fins-lucrativos que acredita nos jovens como agentes de mudança e transformação social. Nosso objectivo é ajudar cada jovem a descobrir seu propósito, potencial, desejos e motivações para FAZER, AGIR e LIDERAR.</p>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
               <!-- Foto equipa -->
-              <img src="assets/team.jpg" alt="Equipa DCT-Youths" style="width:100%; border-radius:12px; object-fit:cover; height:clamp(150px,17.4vw,225px); display:block;">
+              <img src="assets/team.jpg" alt="Equipa DCT-Youths" loading="lazy" decoding="async" style="width:100%; border-radius:12px; object-fit:cover; height:clamp(150px,17.4vw,225px); display:block;">
               <!-- Foto fundador -->
               <div style="position:relative;">
-                <img src="assets/fundador.jpg" alt="Isaias Conjo" style="width:100%; height:clamp(150px,17.4vw,225px); border-radius:12px; object-fit:cover; object-position:center 25%; display:block;">
+                <img src="assets/fundador.jpg" alt="Isaias Conjo" loading="lazy" decoding="async" style="width:100%; height:clamp(150px,17.4vw,225px); border-radius:12px; object-fit:cover; object-position:center 25%; display:block;">
                 <div style="position:absolute; bottom:10px; left:10px; background:rgba(255,255,255,0.88); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-radius:8px; padding:6px 10px;">
                   <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(12px,1.1vw,15px); font-weight:700; color:#0A1F6B; line-height:1.1;">Isaias Conjo</div>
                   <div style="font-size:clamp(9px,0.75vw,11px); color:rgba(10,31,107,0.5); font-weight:500; letter-spacing:0.06em; text-transform:uppercase; margin-top:2px;">Fundador</div>
@@ -896,7 +897,7 @@
           <div class="s6-divider" style="width:60%; height:1px; background:rgba(10,31,107,0.12); flex-shrink:0;"></div>
           <!-- Logo DCT -->
           <div style="flex:1; width:100%; display:flex; align-items:center; justify-content:center; padding:clamp(28px,3.5vw,44px);">
-            <img src="assets/logo-dct.png" alt="D.C.T-Youths" style="width:65%; object-fit:contain;">
+            <img src="assets/logo-dct.png" alt="D.C.T-Youths" loading="lazy" decoding="async" style="width:65%; object-fit:contain;">
           </div>
         </div>
 
@@ -1057,6 +1058,11 @@
     sessionStorage.setItem('slide', cur);
     btnPrev.disabled = cur === 0;
     btnNext.disabled = cur === total - 1;
+    if (cur === 6 && !slides[6].classList.contains('bg-loaded')) {
+      const img = new Image();
+      img.onload = () => slides[6].classList.add('bg-loaded');
+      img.src = 'assets/slide7-bg.jpg';
+    }
     if (typeof gtag !== 'undefined' && slideRoutes[cur]) {
       gtag('event', 'page_view', {
         page_path:  slideRoutes[cur].path,
