@@ -1,0 +1,92 @@
+<svg viewBox="0 0 1440 810" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg-glow" cx="75%" cy="85%" r="55%">
+      <stop offset="0%" stop-color="#0055CC"/>
+      <stop offset="60%" stop-color="#0A1F6B"/>
+      <stop offset="100%" stop-color="#020A22"/>
+    </radialGradient>
+    <linearGradient id="wave-fill-a" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1040B0" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="#1565E0" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0094FF" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="wave-fill-b" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0A2A90" stop-opacity="0.8"/>
+      <stop offset="60%" stop-color="#0E4ACA" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#00AAFF" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="glow-edge" x="-20%" y="-200%" width="140%" height="500%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow-soft" x="-5%" y="-100%" width="110%" height="300%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Dark navy base with radial glow in lower-right -->
+  <rect width="1440" height="810" fill="url(#bg-glow)"/>
+  <!-- Extra dark overlay top-left -->
+  <radialGradient id="dark-corner" cx="5%" cy="5%" r="50%">
+    <stop offset="0%" stop-color="#010714" stop-opacity="0.9"/>
+    <stop offset="100%" stop-color="#010714" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1440" height="810" fill="url(#dark-corner)"/>
+
+  <!-- Upper wave — filled shape -->
+  <path d="M-10,540
+    C120,420 280,200 480,290
+    C680,380 820,100 1040,160
+    C1180,200 1320,320 1450,240
+    L1450,0 L-10,0 Z"
+    fill="url(#wave-fill-b)" opacity="0.7"/>
+
+  <!-- Upper wave edge glow (top surface of lower wave) -->
+  <path d="M-10,540
+    C120,420 280,200 480,290
+    C680,380 820,100 1040,160
+    C1180,200 1320,320 1450,240"
+    fill="none" stroke="#00C8FF" stroke-width="1.5" opacity="0.9" filter="url(#glow-edge)"/>
+  <!-- Bright thin line -->
+  <path d="M-10,540
+    C120,420 280,200 480,290
+    C680,380 820,100 1040,160
+    C1180,200 1320,320 1450,240"
+    fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="0.8" opacity="0.8"/>
+
+  <!-- Lower wave — filled shape -->
+  <path d="M-10,680
+    C140,580 300,390 520,460
+    C740,530 880,300 1100,360
+    C1240,400 1360,500 1450,430
+    L1450,810 L-10,810 Z"
+    fill="url(#wave-fill-a)" opacity="0.75"/>
+
+  <!-- Lower wave edge glow -->
+  <path d="M-10,680
+    C140,580 300,390 520,460
+    C740,530 880,300 1100,360
+    C1240,400 1360,500 1450,430"
+    fill="none" stroke="#00CCFF" stroke-width="1.5" opacity="0.9" filter="url(#glow-edge)"/>
+  <!-- Bright thin line -->
+  <path d="M-10,680
+    C140,580 300,390 520,460
+    C740,530 880,300 1100,360
+    C1240,400 1360,500 1450,430"
+    fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="0.8" opacity="0.8"/>
+
+  <!-- Bright cyan accent in lower-right corner -->
+  <radialGradient id="corner-glow" cx="100%" cy="100%" r="40%">
+    <stop offset="0%" stop-color="#0080FF" stop-opacity="0.55"/>
+    <stop offset="100%" stop-color="#0080FF" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1440" height="810" fill="url(#corner-glow)"/>
+</svg>
