@@ -13,6 +13,7 @@
   gtag('js', new Date());
   gtag('config', 'G-K5YC11KTJ1');
 </script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
@@ -23,10 +24,28 @@
     justify-content: center;
     -webkit-font-smoothing: antialiased;
   }
-  img { display: block; max-width: 280px; width: 60vw; object-fit: contain; }
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo img { width: 56px; height: 56px; object-fit: contain; display: block; }
+  .logo-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 40px;
+    color: #fff; letter-spacing: 0.03em; line-height: 1;
+  }
+  .logo-sub {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); margin-top: 5px;
+  }
 </style>
 </head>
 <body>
-  <img src="projecto-de-vida/template/assets/logo-dct.png" alt="D.C.T-Youths">
+  <div class="logo">
+    <img src="projecto-de-vida/template/assets/logo.png" alt="D.C.T-Youths">
+    <div>
+      <div class="logo-name">D.C.T-Youths</div>
+      <div class="logo-sub">Dreams Can Come True</div>
+    </div>
+  </div>
 </body>
 </html>
