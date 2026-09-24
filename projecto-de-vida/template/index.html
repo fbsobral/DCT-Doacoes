@@ -312,6 +312,22 @@
     /* Nav */
     .nav-bar { bottom: 14px; }
     .nav-box { padding: 7px 12px; gap: 8px; }
+
+    /* ── Slide 6 mobile ── */
+    .slide-6 .content { padding-bottom: 90px; justify-content: flex-start; padding-top: 24px; }
+    .s6-layout { flex-direction: column !important; gap: 20px !important; }
+    .s6-logo-rect {
+      width: 100% !important;
+      max-height: none !important;
+      flex-direction: row !important;
+      height: 80px !important;
+      border-radius: 14px !important;
+    }
+    .s6-logo-rect .s6-divider { width: 1px !important; height: 60% !important; }
+
+    /* ── Slide 7 mobile ── */
+    .slide-7 .wrapper { height: auto; min-height: 100%; }
+    .slide-7 .content { padding-block: 80px 100px !important; }
   }
 </style>
 </head>
@@ -346,7 +362,7 @@
       <p>O apoio da sua organização garante que jovens com potencial tenham acesso à orientação certa, conteúdos práticos e experiências transformadoras que mudam&nbsp;trajetórias.</p>
 
       <div>
-        <a href="#" onclick="event.preventDefault(); goTo(5);" class="btn-primary">
+        <a href="#" onclick="event.preventDefault(); goTo(1);" class="btn-primary">
           Saiba como apoiar
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -860,16 +876,16 @@
     </div>
     <div class="content" style="flex:1; display:flex; flex-direction:column; justify-content:center; padding-bottom:clamp(32px,4vw,56px);">
 
-      <div style="display:flex; align-items:stretch; gap:clamp(24px,3.5vw,48px); width:100%;">
+      <div class="s6-layout" style="display:flex; align-items:stretch; gap:clamp(24px,3.5vw,48px); width:100%;">
 
         <!-- Retângulo vertical com logos empilhadas -->
-        <div style="background:#fff; border-radius:20px; width:clamp(200px,22vw,290px); max-height:480px; display:flex; flex-direction:column; align-items:center; overflow:hidden; flex-shrink:0; box-shadow:0 0 40px 8px rgba(23,85,217,0.45);">
+        <div class="s6-logo-rect" style="background:#fff; border-radius:20px; width:clamp(200px,22vw,290px); max-height:480px; display:flex; flex-direction:column; align-items:center; overflow:hidden; flex-shrink:0; box-shadow:0 0 40px 8px rgba(23,85,217,0.45);">
           <!-- Logo empresa -->
           <div style="flex:1; width:100%; display:flex; align-items:center; justify-content:center; padding:clamp(28px,3.5vw,44px);">
             <div style="font-size:clamp(12px,1.1vw,15px); font-weight:600; color:rgba(10,31,107,0.3); letter-spacing:0.1em; text-transform:uppercase; text-align:center;">Sua Logo</div>
           </div>
           <!-- Divisória -->
-          <div style="width:60%; height:1px; background:rgba(10,31,107,0.12); flex-shrink:0;"></div>
+          <div class="s6-divider" style="width:60%; height:1px; background:rgba(10,31,107,0.12); flex-shrink:0;"></div>
           <!-- Logo DCT -->
           <div style="flex:1; width:100%; display:flex; align-items:center; justify-content:center; padding:clamp(28px,3.5vw,44px);">
             <img src="assets/logo-dct.png" alt="D.C.T-Youths" style="width:65%; object-fit:contain;">
