@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Template {
+  id        String     @id @default(cuid())
+  name      String
+  slug      String     @unique
+  proposals Proposal[]
+  createdAt DateTime   @default(now())
+}
+
+model Proposal {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  logoPath     String
+  htmlSnapshot String
+  templateId   String
+  template     Template @relation(fields: [templateId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
