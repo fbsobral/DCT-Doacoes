@@ -225,12 +225,22 @@
     gap: clamp(32px,5vw,64px); align-items: start;
   }
 
-  /* ── Slide 7 (parceria – navy) ── */
-  .slide-7 { background: linear-gradient(135deg, #071446 0%, #0A1F6B 60%, #0D2880 100%); }
+  /* ── Slide 7 (depoimentos – fundo cinza) ── */
+  .slide-7 { background: #E8EAF0; }
+  .slide-7 .logo-name { color: #0A1F6B; }
+  .slide-7 .logo-sub  { color: rgba(10,31,107,0.45); }
+  .slide-7 .topbar-label { color: rgba(10,31,107,0.4); }
+  .slide-7 .content {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    padding-bottom: clamp(32px,4vw,56px);
+  }
 
-  /* ── Slide 8 (vamos juntos – imagem carregada via JS lazy) ── */
-  .slide-8 { background-color: #0A1F6B; }
-  .slide-8.bg-loaded {
+  /* ── Slide 8 (parceria – navy) ── */
+  .slide-8 { background: linear-gradient(135deg, #071446 0%, #0A1F6B 60%, #0D2880 100%); }
+
+  /* ── Slide 9 (vamos juntos – imagem carregada via JS lazy) ── */
+  .slide-9 { background-color: #0A1F6B; }
+  .slide-9.bg-loaded {
     background:
       linear-gradient(to right,
         rgba(10,31,107,0.95) 0%,
@@ -338,8 +348,12 @@
     .nav-bar { bottom: 14px; }
     .nav-box { padding: 7px 12px; gap: 8px; }
 
-    /* ── Slide 7 mobile (parceria) ── */
+    /* ── Slide 7 mobile (depoimentos) ── */
     .slide-7 .content { padding-bottom: 90px; justify-content: flex-start; padding-top: 24px; }
+    .s-dep-grid { grid-template-columns: 1fr !important; }
+
+    /* ── Slide 8 mobile (parceria) ── */
+    .slide-8 .content { padding-bottom: 90px; justify-content: flex-start; padding-top: 24px; }
     .s6-layout { flex-direction: column !important; gap: 20px !important; }
     .s6-logo-rect {
       width: 100% !important;
@@ -350,9 +364,9 @@
     }
     .s6-logo-rect .s6-divider { width: 1px !important; height: 60% !important; }
 
-    /* ── Slide 8 mobile (vamos juntos) ── */
-    .slide-8 .wrapper { height: auto; min-height: 100%; }
-    .slide-8 .content { padding-block: 80px 100px !important; }
+    /* ── Slide 9 mobile (vamos juntos) ── */
+    .slide-9 .wrapper { height: auto; min-height: 100%; }
+    .slide-9 .content { padding-block: 80px 100px !important; }
   }
 </style>
 </head>
@@ -1010,8 +1024,81 @@
   </div>
 </div>
 
-<!-- Slide 7 -->
+<!-- ════════════ SLIDE 7 · DEPOIMENTOS ════════════ -->
 <div class="slide slide-7">
+  <div class="wrapper">
+    <div class="topbar">
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="assets/logo.png" alt="D.C.T-Youths" width="36" height="36" style="object-fit:contain;">
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">D.C.T-Youths</span>
+          <span class="logo-sub">Dreams Can Come True</span>
+        </div>
+      </div>
+      <div class="topbar-label">Proposta de Doação</div>
+    </div>
+    <div class="content">
+      <div class="s-dep-grid" style="display:grid; grid-template-columns:0.85fr 1fr; gap:clamp(32px,4vw,56px); align-items:start;">
+
+        <!-- ── ESQUERDA: título e subtítulo ── -->
+        <div style="display:flex; flex-direction:column; justify-content:center; gap:clamp(16px,2vw,28px); padding-top:clamp(8px,1vw,16px);">
+          <div>
+            <div style="font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:rgba(10,31,107,0.35); margin-bottom:12px;">Impacto Real</div>
+            <h2 style="font-size:clamp(24px,3.2vw,46px); color:#0A1F6B; line-height:1.1; margin-bottom:clamp(12px,1.4vw,20px);">Histórias reais de quem já participou dos nossos programas</h2>
+            <p style="font-size:clamp(13px,1.15vw,16px); color:rgba(10,31,107,0.65); line-height:1.7; margin:0;">Confira o que mentores, equipa e participantes falam dos nossos programas.</p>
+          </div>
+          <div style="width:48px; height:3px; background:linear-gradient(90deg,#1755D9,rgba(23,85,217,0.2)); border-radius:2px;"></div>
+        </div>
+
+        <!-- ── DIREITA: mosaico de mentores ── -->
+        <div style="display:flex; flex-direction:column; gap:clamp(12px,1.4vw,18px);">
+          <div>
+            <div style="font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:rgba(10,31,107,0.35); margin-bottom:6px;">A nossa equipa</div>
+            <p style="font-size:clamp(12px,1vw,14px); color:rgba(10,31,107,0.6); margin:0; line-height:1.5;">Mentores e participantes que já transformaram as suas vidas através do programa</p>
+          </div>
+          <!-- Mosaico -->
+          <div style="display:grid; grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(2,1fr); gap:6px; aspect-ratio:5/2;">
+            <!-- célula 1 – 2 col span -->
+            <div style="grid-column:span 2; border-radius:10px; overflow:hidden; background:rgba(10,31,107,0.07); border:1px solid rgba(10,31,107,0.08); display:flex; align-items:center; justify-content:center;">
+              <img src="assets/mentor-1.jpg" alt="Mentor" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+            </div>
+            <!-- 3 células simples -->
+            <div style="border-radius:10px; overflow:hidden; background:rgba(10,31,107,0.07); border:1px solid rgba(10,31,107,0.08); display:flex; align-items:center; justify-content:center;">
+              <img src="assets/mentor-2.jpg" alt="Mentor" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+            </div>
+            <div style="border-radius:10px; overflow:hidden; background:rgba(10,31,107,0.07); border:1px solid rgba(10,31,107,0.08); display:flex; align-items:center; justify-content:center;">
+              <img src="assets/mentor-3.jpg" alt="Mentor" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+            </div>
+            <div style="border-radius:10px; overflow:hidden; background:rgba(10,31,107,0.07); border:1px solid rgba(10,31,107,0.08); display:flex; align-items:center; justify-content:center;">
+              <img src="assets/mentor-4.jpg" alt="Mentor" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+            </div>
+            <!-- linha 2 -->
+            <div style="border-radius:10px; overflow:hidden; background:rgba(10,31,107,0.07); border:1px solid rgba(10,31,107,0.08); display:flex; align-items:center; justify-content:center;">
+              <img src="assets/mentor-5.jpg" alt="Mentor" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+            </div>
+            <div style="border-radius:10px; overflow:hidden; background:rgba(10,31,107,0.07); border:1px solid rgba(10,31,107,0.08); display:flex; align-items:center; justify-content:center;">
+              <img src="assets/mentor-6.jpg" alt="Mentor" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+            </div>
+            <div style="border-radius:10px; overflow:hidden; background:rgba(10,31,107,0.07); border:1px solid rgba(10,31,107,0.08); display:flex; align-items:center; justify-content:center;">
+              <img src="assets/mentor-7.jpg" alt="Mentor" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+            </div>
+            <!-- célula 8 – 2 col span -->
+            <div style="grid-column:span 2; border-radius:10px; overflow:hidden; background:rgba(10,31,107,0.07); border:1px solid rgba(10,31,107,0.08); display:flex; align-items:center; justify-content:center;">
+              <img src="assets/mentor-8.jpg" alt="Mentor" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+            </div>
+          </div>
+          <div style="font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:rgba(10,31,107,0.3); text-align:right;">Adicione as fotos em assets/mentor-1.jpg … mentor-8.jpg</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide slide-8">
   <div class="wrapper">
     <div class="topbar">
       <div class="logo">
@@ -1103,8 +1190,8 @@
   </div>
 </div>
 
-<!-- ════════════ SLIDE 8 · VAMOS JUNTOS ════════════ -->
-<div class="slide slide-8">
+<!-- ════════════ SLIDE 9 · VAMOS JUNTOS ════════════ -->
+<div class="slide slide-9">
   <div class="wrapper">
     <div class="content" style="flex:1; display:flex; flex-direction:column; justify-content:center; padding-block:clamp(56px,7vw,96px);">
       <div style="max-width:446px;">
@@ -1178,11 +1265,11 @@
   btnNext.addEventListener('click', () => goTo(cur + 1));
 
   const basePath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '');
-  const slideSlugs = ['capa', 'contexto', 'projeto-de-vida', 'aprovacao', 'cronograma', 'sobre', 'parceria', 'vamos-juntos'];
+  const slideSlugs = ['capa', 'contexto', 'projeto-de-vida', 'aprovacao', 'cronograma', 'sobre', 'depoimentos', 'parceria', 'vamos-juntos'];
   const slideTitles = [
     'Slide 1 · Capa', 'Slide 2 · Contexto', 'Slide 3 · Projeto de Vida',
     'Slide 4 · Aprovação', 'Slide 5 · Cronograma', 'Slide 6 · Sobre a DCT',
-    'Slide 7 · Parceria', 'Slide 8 · Vamos Juntos',
+    'Slide 7 · Depoimentos', 'Slide 8 · Parceria', 'Slide 9 · Vamos Juntos',
   ];
   const slideRoutes = slideSlugs.map((slug, i) => ({
     path: `${basePath}/${slug}`,
@@ -1201,9 +1288,9 @@
     sessionStorage.setItem('slide', cur);
     btnPrev.disabled = cur === 0;
     btnNext.disabled = cur === total - 1;
-    if (cur === 7 && !slides[7].classList.contains('bg-loaded')) {
+    if (cur === 8 && !slides[8].classList.contains('bg-loaded')) {
       const img = new Image();
-      img.onload = () => slides[7].classList.add('bg-loaded');
+      img.onload = () => slides[8].classList.add('bg-loaded');
       img.src = 'assets/slide7-bg.jpg';
     }
     if (typeof gtag !== 'undefined' && slideRoutes[cur]) {
