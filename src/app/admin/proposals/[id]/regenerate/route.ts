@@ -22,7 +22,8 @@ export async function POST(
   const htmlSnapshot = await generateSnapshot(
     proposal.template.slug,
     proposal.name,
-    proposal.logoPath
+    proposal.logoPath,
+    proposal.artigo ?? 'A'
   )
 
   await prisma.proposal.update({ where: { id: params.id }, data: { htmlSnapshot } })

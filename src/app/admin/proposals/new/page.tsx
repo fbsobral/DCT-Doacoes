@@ -21,6 +21,7 @@ async function createProposal(formData: FormData) {
   const name = formData.get('name') as string
   const slug = formData.get('slug') as string
   const templateId = formData.get('templateId') as string
+  const artigo = (formData.get('artigo') as string) || 'A'
   const logoFile = formData.get('logo') as File
 
   if (!name || !slug || !templateId || !logoFile || logoFile.size === 0) {
@@ -35,10 +36,10 @@ async function createProposal(formData: FormData) {
   const template = await prisma.template.findUnique({ where: { id: templateId } })
   if (!template) throw new Error('Template não encontrado.')
 
-  const htmlSnapshot = await generateSnapshot(template.slug, name, logoPath)
+  const htmlSnapshot = await generateSnapshot(template.slug, name, logoPath, artigo)
 
   await prisma.proposal.create({
-    data: { name, slug, logoPath, htmlSnapshot, templateId },
+    data: { name, slug, artigo, logoPath, htmlSnapshot, templateId },
   })
 
   revalidatePath('/admin')

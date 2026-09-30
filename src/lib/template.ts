@@ -4,7 +4,8 @@ import path from 'path'
 export async function generateSnapshot(
   templateSlug: string,
   donorName: string,
-  logoPath: string
+  logoPath: string,
+  artigo: string = 'A'
 ): Promise<string> {
   const templatePath = path.join(process.cwd(), 'projecto-de-vida', 'template', 'index.html')
   let html = await fs.readFile(templatePath, 'utf-8')
@@ -17,7 +18,9 @@ export async function generateSnapshot(
   // JS lazy-load: img.src = 'assets/...'
   html = html.replace(/img\.src = 'assets\//g, "img.src = '/projecto-de-vida/template/assets/")
 
-  // Replace [EMPRESA] / [Empresa] placeholders with the actual donor name
+  // Replace article and name placeholders
+  html = html.replace(/\[ARTIGO\]/g, artigo.toUpperCase())
+  html = html.replace(/\[artigo\]/g, artigo.toLowerCase())
   html = html.replace(/\[EMPRESA\]/g, donorName)
   html = html.replace(/\[Empresa\]/g, donorName)
 

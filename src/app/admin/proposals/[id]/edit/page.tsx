@@ -5,22 +5,27 @@ import { revalidatePath } from 'next/cache'
 
 export const dynamic = 'force-dynamic'
 
-async function updateLogo(id: string, formData: FormData) {
+async function updateProposal(id: string, formData: FormData) {
   'use server'
   const logoFile = formData.get('logo') as File
-  if (!logoFile || logoFile.size === 0) redirect(`/admin/proposals/${id}/edit`)
+  const artigo = (formData.get('artigo') as string) || 'A'
 
-  const buffer = Buffer.from(await logoFile.arrayBuffer())
-  const mimeType = logoFile.type || 'image/png'
-  const logoPath = `data:${mimeType};base64,${buffer.toString('base64')}`
-
-  const proposal = await prisma.proposal.update({
+  const proposal = await prisma.proposal.findUnique({
     where: { id },
-    data: { logoPath },
     include: { template: true },
   })
+  if (!proposal) redirect('/admin')
 
-  const htmlSnapshot = await generateSnapshot(proposal.template.slug, proposal.name, logoPath)
+  let logoPath = proposal.logoPath
+  if (logoFile && logoFile.size > 0) {
+    const buffer = Buffer.from(await logoFile.arrayBuffer())
+    const mimeType = logoFile.type || 'image/png'
+    logoPath = `data:${mimeType};base64,${buffer.toString('base64')}`
+  }
+
+  await prisma.proposal.update({ where: { id }, data: { logoPath, artigo } })
+
+  const htmlSnapshot = await generateSnapshot(proposal.template.slug, proposal.name, logoPath, artigo)
   await prisma.proposal.update({ where: { id }, data: { htmlSnapshot } })
 
   revalidatePath('/admin')
@@ -34,7 +39,7 @@ export default async function EditProposalPage({ params }: { params: { id: strin
   })
   if (!proposal) notFound()
 
-  const action = updateLogo.bind(null, params.id)
+  const action = updateProposal.bind(null, params.id)
 
   return (
     <div className="p-8 max-w-2xl">
@@ -56,6 +61,20 @@ export default async function EditProposalPage({ params }: { params: { id: strin
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
+              Artigo
+            </label>
+            <select
+              name="artigo"
+              defaultValue={proposal.artigo}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#0A1F6B] bg-white"
+            >
+              <option value="A">A — feminino (ex: A Empresa X)</option>
+              <option value="O">O — masculino (ex: O Instituto Y)</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Logo do Doador
             </label>
             {proposal.logoPath && (
@@ -65,9 +84,9 @@ export default async function EditProposalPage({ params }: { params: { id: strin
               type="file"
               name="logo"
               accept="image/*"
-              required
               className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#0A1F6B] file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-sm file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
             />
+            <p className="mt-1 text-xs text-gray-500">Deixe em branco para manter a logo atual.</p>
           </div>
 
           <div>

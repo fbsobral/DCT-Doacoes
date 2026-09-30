@@ -19,6 +19,7 @@ model Proposal {
   id           String   @id @default(cuid())
   name         String
   slug         String   @unique
+  artigo       String   @default("A")
   logoPath     String
   htmlSnapshot String
   templateId   String

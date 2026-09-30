@@ -39,6 +39,21 @@ export default function ProposalForm({
       </div>
 
       <div>
+        <label htmlFor="artigo" className="block text-sm font-medium text-gray-700 mb-1">
+          Artigo
+        </label>
+        <select
+          id="artigo"
+          name="artigo"
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#0A1F6B] bg-white"
+        >
+          <option value="A">A — feminino (ex: A Empresa X)</option>
+          <option value="O">O — masculino (ex: O Instituto Y)</option>
+        </select>
+      </div>
+
+      <div>
         <label htmlFor="logo" className="block text-sm font-medium text-gray-700 mb-1">
           Logo do Doador
         </label>
