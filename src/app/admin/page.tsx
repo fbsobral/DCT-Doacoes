@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import DeleteButton from './DeleteButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -97,19 +98,7 @@ export default async function AdminPage() {
                           Regenerar
                         </button>
                       </form>
-                      <form action={`/admin/proposals/${proposal.id}/delete`} method="POST">
-                        <button
-                          type="submit"
-                          className="text-xs px-3 py-1.5 rounded border border-red-300 text-red-700 hover:bg-red-50 transition-colors"
-                          onClick={(e) => {
-                            if (!confirm('Tem certeza que deseja eliminar esta proposta?')) {
-                              e.preventDefault()
-                            }
-                          }}
-                        >
-                          Eliminar
-                        </button>
-                      </form>
+                      <DeleteButton id={proposal.id} />
                     </div>
                   </td>
                 </tr>

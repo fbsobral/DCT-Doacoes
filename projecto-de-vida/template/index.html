@@ -260,7 +260,7 @@
         rgba(10,31,107,0.10) 80%,
         transparent 100%
       ),
-      url('assets/slide7-bg.jpg') center/cover no-repeat;
+      url('assets/slide9-bg.jpg') center/cover no-repeat;
   }
 
   /* ── Nav ── */
@@ -541,21 +541,7 @@
               </svg>
               para
               <!-- Moçambique -->
-              <svg width="32" height="22" viewBox="0 0 32 22" xmlns="http://www.w3.org/2000/svg" style="border-radius:3px; display:block; flex-shrink:0;">
-                <!-- Fundo amarelo (terço inferior) -->
-                <rect width="32" height="22" fill="#FCB514"/>
-                <!-- Terço superior verde -->
-                <rect width="32" height="7.3" fill="#009A44"/>
-                <!-- Faixa preta central -->
-                <rect y="7.8" width="32" height="6.4" fill="#1a1a1a"/>
-                <!-- Bordas douradas da faixa preta -->
-                <rect y="7.3" width="32" height="0.5" fill="#FCB514"/>
-                <rect y="14.2" width="32" height="0.6" fill="#FCB514"/>
-                <!-- Triângulo vermelho (lado esquerdo) -->
-                <polygon points="0,0 14,11 0,22" fill="#CE1126"/>
-                <!-- Estrela amarela centrada no triângulo -->
-                <polygon points="5,8 5.76,9.95 7.85,10.07 6.24,11.4 6.76,13.43 5,12.3 3.24,13.43 3.76,11.4 2.15,10.07 4.24,9.95" fill="#FCB514"/>
-              </svg>
+              <img src="assets/bandeira-mocambique.jpg" alt="Moçambique" style="width:32px; height:22px; object-fit:cover; border-radius:3px; display:block; flex-shrink:0;">
             </div>
             <div style="width:42px; height:42px; background:#1755D9; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
@@ -1221,7 +1207,7 @@
         <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:clamp(16px,2vw,24px);">
 
           <!-- Título -->
-          <h2 style="font-size:clamp(26px,3.2vw,44px); color:#fff; margin:0; line-height:1.1;">COMO A <span style="color:rgba(255,255,255,0.4);">[EMPRESA]</span> PODE CONTRIBUIR?</h2>
+          <h2 style="font-size:clamp(23px,2.88vw,40px); color:#fff; margin:0; line-height:1.1;">COMO A <span style="color:rgba(255,255,255,0.4);">[EMPRESA]</span> PODE CONTRIBUIR?</h2>
 
           <!-- Buscamos -->
           <div>
@@ -1262,10 +1248,11 @@
           <div>
             <div style="font-size:clamp(11px,1vw,13px); font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:10px;">O que a <span style="color:rgba(255,255,255,0.7);">[Empresa]</span> ganha em troca</div>
             <ol style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:5px;">
-              <li style="font-size:clamp(12px,1.05vw,15px); color:rgba(255,255,255,0.75); line-height:1.55;">Padrinhos profissionais para palestras variáveis. Posicionamento como referência em educação;</li>
-              <li style="font-size:clamp(12px,1.05vw,15px); color:rgba(255,255,255,0.75); line-height:1.55;">Conteúdo para redes sociais;</li>
-              <li style="font-size:clamp(12px,1.05vw,15px); color:rgba(255,255,255,0.75); line-height:1.55;">Relatório trimestral para prestação de contas;</li>
-              <li style="font-size:clamp(12px,1.05vw,15px); color:rgba(255,255,255,0.75); line-height:1.55;">Um banco com <strong style="color:#fff;">+20 Mentores</strong></li>
+              <li style="font-size:clamp(12px,1.05vw,15px); color:rgba(255,255,255,0.75); line-height:1.55;">Relatório trimestral com métricas de impacto (presença, evolução e depoimentos dos participantes);</li>
+              <li style="font-size:clamp(12px,1.05vw,15px); color:rgba(255,255,255,0.75); line-height:1.55;">Menção como <strong style="color:#fff;">Parceiro Oficial</strong> em redes sociais, certificados e materiais do programa;</li>
+              <li style="font-size:clamp(12px,1.05vw,15px); color:rgba(255,255,255,0.75); line-height:1.55;">Licença de uso da metodologia Projecto de Vida para aplicar em programas internos de jovens aprendizes;</li>
+              <li style="font-size:clamp(12px,1.05vw,15px); color:rgba(255,255,255,0.75); line-height:1.55;">Direito de indicar jovens da comunidade para vagas do programa;</li>
+              <li style="font-size:clamp(12px,1.05vw,15px); color:rgba(255,255,255,0.75); line-height:1.55;">Acesso à rede de <strong style="color:#fff;">+20 mentores voluntários</strong> para networking e parcerias.</li>
             </ol>
           </div>
 
@@ -1378,7 +1365,7 @@
     if (cur === 8 && !slides[8].classList.contains('bg-loaded')) {
       const img = new Image();
       img.onload = () => slides[8].classList.add('bg-loaded');
-      img.src = 'assets/slide7-bg.jpg';
+      img.src = 'assets/slide9-bg.jpg';
     }
     if (typeof gtag !== 'undefined' && slideRoutes[cur]) {
       gtag('event', 'page_view', {

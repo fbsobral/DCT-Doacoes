@@ -12,6 +12,20 @@ export async function generateSnapshot(
   // Fix relative asset paths → absolute so they resolve from any URL
   // The template lives at /projecto-de-vida/template/, so assets/ → /projecto-de-vida/template/assets/
   html = html.replace(/(src|href)="assets\//g, '$1="/projecto-de-vida/template/assets/')
+  html = html.replace(/url\('assets\//g, "url('/projecto-de-vida/template/assets/")
+  html = html.replace(/url\("assets\//g, 'url("/projecto-de-vida/template/assets/')
+  // JS lazy-load: img.src = 'assets/...'
+  html = html.replace(/img\.src = 'assets\//g, "img.src = '/projecto-de-vida/template/assets/")
+
+  // Replace [EMPRESA] / [Empresa] placeholders with the actual donor name
+  html = html.replace(/\[EMPRESA\]/g, donorName)
+  html = html.replace(/\[Empresa\]/g, donorName)
+
+  // Replace "Sua Logo" placeholder in slide 8 with the actual donor logo
+  html = html.replace(
+    /<div style="font-size:clamp\(12px,1\.1vw,15px\)[^"]*"[^>]*>Sua Logo<\/div>/,
+    `<img src="${logoPath}" alt="${donorName}" style="max-width:96%; max-height:96px; object-fit:contain; display:block;">`
+  )
 
   // Donor overlay injected right after the first slide's opening tag
   const overlay = `<div style="position:absolute; top:16px; right:clamp(28px,5vw,60px); z-index:100; display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.12); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.2); border-radius:10px; padding:8px 14px;">

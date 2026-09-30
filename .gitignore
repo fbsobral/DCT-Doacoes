@@ -17,6 +17,9 @@ prisma/migrations/
 public/uploads/*
 !public/uploads/.gitkeep
 
+# Symlink para assets do template (conteúdo já está em projecto-de-vida/)
+public/projecto-de-vida
+
 # OS
 .DS_Store
 Thumbs.db

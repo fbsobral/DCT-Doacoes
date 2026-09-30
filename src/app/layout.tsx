@@ -7,11 +7,16 @@ export const metadata: Metadata = {
   description: 'Proposal management for DCT Youths',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const devBypass = process.env.DEV_AUTH_BYPASS === 'true'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  if (devBypass) {
+    return (
+      <html lang="pt">
+        <body>{children}</body>
+      </html>
+    )
+  }
   return (
     <ClerkProvider>
       <html lang="pt">

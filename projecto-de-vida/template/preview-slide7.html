@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 7 · Opções</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #111; font-family: 'Barlow', sans-serif; padding: 32px; display: flex; flex-direction: column; gap: 40px; }
+
+  .label {
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    opacity: 0.5;
+  }
+
+  .preview {
+    width: 100%;
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ── OPÇÃO 1: Split vertical ── */
+  .opt1 {
+    display: flex;
+    height: 100%;
+  }
+  .opt1-photo {
+    width: 50%;
+    height: 100%;
+    background: url('assets/slide7-bg.jpg') center/cover no-repeat;
+    flex-shrink: 0;
+  }
+  .opt1-content {
+    flex: 1;
+    background: #0A1F6B;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(28px, 4vw, 56px);
+  }
+
+  /* ── OPÇÃO 2: Overlay gradiente ── */
+  .opt2 {
+    height: 100%;
+    background: url('assets/slide7-bg.jpg') center/cover no-repeat;
+  }
+  .opt2-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(7,20,70,0.92) 0%, rgba(7,20,70,0.7) 55%, rgba(7,20,70,0.05) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(32px, 5vw, 72px);
+  }
+  .opt2-content {
+    max-width: 52%;
+  }
+
+  /* ── OPÇÃO 3: Overlay total + centro ── */
+  .opt3 {
+    height: 100%;
+    background: url('assets/slide7-bg.jpg') center/cover no-repeat;
+  }
+  .opt3-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 31, 107, 0.88);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(32px, 5vw, 72px);
+    text-align: center;
+  }
+  .opt3-content {
+    max-width: 580px;
+  }
+
+  /* ── Shared elements ── */
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: clamp(16px, 2vw, 24px);
+  }
+  .logo-row img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+  .logo-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(14px, 1.4vw, 18px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+  }
+  .logo-sub {
+    display: block;
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(9px, 0.8vw, 11px);
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(22px, 3vw, 42px);
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    margin-bottom: clamp(10px, 1.2vw, 16px);
+  }
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: rgba(255,255,255,0.25);
+    margin-bottom: clamp(12px, 1.5vw, 20px);
+  }
+  .divider-center {
+    margin-inline: auto;
+  }
+  blockquote {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(12px, 1.2vw, 17px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<!-- OPÇÃO 1 -->
+<div>
+  <div class="label">Opção 1 — Split Vertical</div>
+  <div class="preview">
+    <div class="opt1">
+      <div class="opt1-photo"></div>
+      <div class="opt1-content">
+        <div class="logo-row">
+          <img src="assets/logo.png" alt="">
+          <div>
+            <span class="logo-name">D.C.T-Youths</span>
+            <span class="logo-sub">Dreams Can Come True</span>
+          </div>
+        </div>
+        <div class="title">VAMOS JUNTOS?</div>
+        <div class="divider"></div>
+        <blockquote>"Pequenos atos, quando multiplicados por milhões de pessoas, podem transformar o mundo."</blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPÇÃO 2 -->
+<div>
+  <div class="label">Opção 2 — Overlay Gradiente (Cinematográfico)</div>
+  <div class="preview">
+    <div class="opt2">
+      <div class="opt2-overlay">
+        <div class="opt2-content">
+          <div class="logo-row">
+            <img src="assets/logo.png" alt="">
+            <div>
+              <span class="logo-name">D.C.T-Youths</span>
+              <span class="logo-sub">Dreams Can Come True</span>
+            </div>
+          </div>
+          <div class="title">VAMOS JUNTOS?</div>
+          <div class="divider"></div>
+          <blockquote>"Pequenos atos, quando multiplicados por milhões de pessoas, podem transformar o mundo."</blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPÇÃO 3 -->
+<div>
+  <div class="label">Opção 3 — Overlay Total + Centro</div>
+  <div class="preview">
+    <div class="opt3">
+      <div class="opt3-overlay">
+        <div class="opt3-content">
+          <div class="logo-row" style="justify-content:center; margin-bottom:clamp(16px,2vw,24px);">
+            <img src="assets/logo.png" alt="">
+            <div>
+              <span class="logo-name">D.C.T-Youths</span>
+              <span class="logo-sub">Dreams Can Come True</span>
+            </div>
+          </div>
+          <div class="divider divider-center"></div>
+          <div class="title" style="margin-bottom:clamp(10px,1.2vw,16px);">VAMOS JUNTOS?</div>
+          <blockquote style="font-style:italic;">"Pequenos atos, quando multiplicados por milhões de pessoas, podem transformar o mundo."</blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
