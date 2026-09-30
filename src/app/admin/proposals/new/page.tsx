@@ -2,13 +2,11 @@ import { prisma } from '@/lib/prisma'
 import { generateSnapshot } from '@/lib/template'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
-import path from 'path'
-import fs from 'fs/promises'
 import ProposalForm from './ProposalForm'
 
 export const dynamic = 'force-dynamic'
 
-function toSlug(text: string): string {
+function toSlug(text: string) {
   return text
     .toLowerCase()
     .normalize('NFD')
@@ -29,16 +27,10 @@ async function createProposal(formData: FormData) {
     throw new Error('Todos os campos são obrigatórios.')
   }
 
-  // Save logo to public/uploads
-  const ext = path.extname(logoFile.name) || '.png'
-  const filename = `${Date.now()}-${toSlug(name)}${ext}`
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads')
-  await fs.mkdir(uploadDir, { recursive: true })
-  const filePath = path.join(uploadDir, filename)
+  // Convert logo to base64 data URL (no filesystem needed)
   const buffer = Buffer.from(await logoFile.arrayBuffer())
-  await fs.writeFile(filePath, buffer)
-
-  const logoPath = `/uploads/${filename}`
+  const mimeType = logoFile.type || 'image/png'
+  const logoPath = `data:${mimeType};base64,${buffer.toString('base64')}`
 
   const template = await prisma.template.findUnique({ where: { id: templateId } })
   if (!template) throw new Error('Template não encontrado.')
