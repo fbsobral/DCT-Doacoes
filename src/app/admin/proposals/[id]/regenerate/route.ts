@@ -3,16 +3,12 @@ import { prisma } from '@/lib/prisma'
 import { generateSnapshot } from '@/lib/template'
 import { auth } from '@clerk/nextjs/server'
 
-const devBypass = process.env.DEV_AUTH_BYPASS === 'true'
-
 export async function POST(
   _req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  if (!devBypass) {
-    const { userId } = await auth()
-    if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const { userId } = await auth()
+  if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const proposal = await prisma.proposal.findUnique({
     where: { id: params.id },

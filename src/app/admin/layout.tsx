@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import { UserButton } from '@clerk/nextjs'
 
-const devBypass = process.env.DEV_AUTH_BYPASS === 'true'
-
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen">
@@ -19,8 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </Link>
         </nav>
         <div className="px-6 py-4 border-t border-white/10">
-          {!devBypass && <UserButton afterSignOutUrl="/sign-in" />}
-          {devBypass && <span className="text-xs text-white/40">dev mode</span>}
+          <UserButton afterSignOutUrl="/sign-in" />
         </div>
       </aside>
       <main className="flex-1 bg-white overflow-auto">
