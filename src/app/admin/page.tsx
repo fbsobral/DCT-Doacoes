@@ -90,6 +90,12 @@ export default async function AdminPage() {
                       >
                         Ver
                       </a>
+                      <a
+                        href={`/admin/proposals/${proposal.id}/edit`}
+                        className="text-xs px-3 py-1.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        Editar
+                      </a>
                       <form action={`/admin/proposals/${proposal.id}/regenerate`} method="POST">
                         <button
                           type="submit"
