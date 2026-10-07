@@ -5,10 +5,21 @@ import { revalidatePath } from 'next/cache'
 
 export const dynamic = 'force-dynamic'
 
+function toSlug(text: string) {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
 async function updateProposal(id: string, formData: FormData) {
   'use server'
-  const logoFile = formData.get('logo') as File
+  const name = (formData.get('name') as string).trim()
+  const slug = (formData.get('slug') as string).trim()
   const artigo = (formData.get('artigo') as string) || 'A'
+  const logoFile = formData.get('logo') as File
 
   const proposal = await prisma.proposal.findUnique({
     where: { id },
@@ -23,9 +34,9 @@ async function updateProposal(id: string, formData: FormData) {
     logoPath = `data:${mimeType};base64,${buffer.toString('base64')}`
   }
 
-  await prisma.proposal.update({ where: { id }, data: { logoPath, artigo } })
+  await prisma.proposal.update({ where: { id }, data: { name, slug, artigo, logoPath } })
 
-  const htmlSnapshot = await generateSnapshot(proposal.template.slug, proposal.name, logoPath, artigo)
+  const htmlSnapshot = await generateSnapshot(proposal.template.slug, name, logoPath, artigo)
   await prisma.proposal.update({ where: { id }, data: { htmlSnapshot } })
 
   revalidatePath('/admin')
@@ -48,22 +59,25 @@ export default async function EditProposalPage({ params }: { params: { id: strin
       <form action={action} encType="multipart/form-data">
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
               Nome do Doador
             </label>
             <input
+              id="name"
+              name="name"
               type="text"
-              disabled
-              value={proposal.name}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm bg-gray-50 text-gray-500"
+              required
+              defaultValue={proposal.name}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#0A1F6B]"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="artigo" className="block text-sm font-medium text-gray-700 mb-1">
               Artigo
             </label>
             <select
+              id="artigo"
               name="artigo"
               defaultValue={proposal.artigo}
               className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#0A1F6B] bg-white"
@@ -74,13 +88,14 @@ export default async function EditProposalPage({ params }: { params: { id: strin
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="logo" className="block text-sm font-medium text-gray-700 mb-1">
               Logo do Doador
             </label>
             {proposal.logoPath && (
               <img src={proposal.logoPath} alt={proposal.name} className="h-10 object-contain mb-2" />
             )}
             <input
+              id="logo"
               type="file"
               name="logo"
               accept="image/*"
@@ -102,14 +117,16 @@ export default async function EditProposalPage({ params }: { params: { id: strin
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="slug" className="block text-sm font-medium text-gray-700 mb-1">
               Slug da Proposta
             </label>
             <input
+              id="slug"
+              name="slug"
               type="text"
-              disabled
-              value={proposal.slug}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm bg-gray-50 text-gray-500"
+              required
+              defaultValue={proposal.slug}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#0A1F6B]"
             />
             <p className="mt-1 text-xs text-gray-500">
               URL pública: /{proposal.template.slug}/{proposal.slug}/
