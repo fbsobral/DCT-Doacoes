@@ -10,6 +10,12 @@ export async function POST(
   const { userId } = await auth()
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
+  const origin = _req.headers.get('origin')
+  const host = _req.headers.get('host')
+  if (origin && host && new URL(origin).host !== host) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const proposal = await prisma.proposal.findUnique({
     where: { id: params.id },
     include: { template: true },

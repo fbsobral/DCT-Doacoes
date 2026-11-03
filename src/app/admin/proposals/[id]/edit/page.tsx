@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { generateSnapshot } from '@/lib/template'
+import { logoToDataUrl } from '@/lib/logo'
 import { redirect, notFound } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
@@ -17,7 +18,7 @@ function toSlug(text: string) {
 async function updateProposal(id: string, formData: FormData) {
   'use server'
   const name = (formData.get('name') as string).trim()
-  const slug = (formData.get('slug') as string).trim()
+  const slug = toSlug((formData.get('slug') as string).trim())
   const artigo = (formData.get('artigo') as string) || 'A'
   const logoFile = formData.get('logo') as File
 
@@ -29,9 +30,7 @@ async function updateProposal(id: string, formData: FormData) {
 
   let logoPath = proposal.logoPath
   if (logoFile && logoFile.size > 0) {
-    const buffer = Buffer.from(await logoFile.arrayBuffer())
-    const mimeType = logoFile.type || 'image/png'
-    logoPath = `data:${mimeType};base64,${buffer.toString('base64')}`
+    logoPath = await logoToDataUrl(logoFile)
   }
 
   await prisma.proposal.update({ where: { id }, data: { name, slug, artigo, logoPath } })

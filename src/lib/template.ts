@@ -1,6 +1,15 @@
 import fs from 'fs/promises'
 import path from 'path'
 
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 export async function generateSnapshot(
   templateSlug: string,
   donorName: string,
@@ -18,22 +27,24 @@ export async function generateSnapshot(
   // JS lazy-load: img.src = 'assets/...'
   html = html.replace(/img\.src = 'assets\//g, "img.src = '/projecto-de-vida/template/assets/")
 
+  const safeName = escapeHtml(donorName)
+
   // Replace article and name placeholders
   html = html.replace(/\[ARTIGO\]/g, artigo.toUpperCase())
   html = html.replace(/\[artigo\]/g, artigo.toLowerCase())
-  html = html.replace(/\[EMPRESA\]/g, donorName)
-  html = html.replace(/\[Empresa\]/g, donorName)
+  html = html.replace(/\[EMPRESA\]/g, safeName)
+  html = html.replace(/\[Empresa\]/g, safeName)
 
   // Replace "Sua Logo" placeholder in slide 8 with the actual donor logo
   html = html.replace(
     /<div style="font-size:clamp\(12px,1\.1vw,15px\)[^"]*"[^>]*>Sua Logo<\/div>/,
-    `<img src="${logoPath}" alt="${donorName}" style="max-width:96%; max-height:96px; object-fit:contain; display:block;">`
+    `<img src="${logoPath}" alt="${safeName}" style="max-width:96%; max-height:96px; object-fit:contain; display:block;">`
   )
 
   // Donor overlay injected right after the first slide's opening tag
   const overlay = `<div style="position:absolute; top:16px; right:clamp(28px,5vw,60px); z-index:100; display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.12); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.2); border-radius:10px; padding:8px 14px;">
-  <img src="${logoPath}" alt="${donorName}" style="height:32px; width:auto; object-fit:contain; display:block;">
-  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.85); letter-spacing:0.08em; text-transform:uppercase;">Proposta para ${donorName}</div>
+  <img src="${logoPath}" alt="${safeName}" style="height:32px; width:auto; object-fit:contain; display:block;">
+  <div style="font-size:11px; font-weight:600; color:rgba(255,255,255,0.85); letter-spacing:0.08em; text-transform:uppercase;">Proposta para ${safeName}</div>
 </div>`
 
   html = html.replace(

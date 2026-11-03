@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { generateSnapshot } from '@/lib/template'
+import { logoToDataUrl } from '@/lib/logo'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import ProposalForm from './ProposalForm'
@@ -18,8 +19,8 @@ function toSlug(text: string) {
 async function createProposal(formData: FormData) {
   'use server'
 
-  const name = formData.get('name') as string
-  const slug = formData.get('slug') as string
+  const name = (formData.get('name') as string).trim()
+  const slug = toSlug((formData.get('slug') as string).trim())
   const templateId = formData.get('templateId') as string
   const artigo = (formData.get('artigo') as string) || 'A'
   const logoFile = formData.get('logo') as File
@@ -28,10 +29,7 @@ async function createProposal(formData: FormData) {
     throw new Error('Todos os campos são obrigatórios.')
   }
 
-  // Convert logo to base64 data URL (no filesystem needed)
-  const buffer = Buffer.from(await logoFile.arrayBuffer())
-  const mimeType = logoFile.type || 'image/png'
-  const logoPath = `data:${mimeType};base64,${buffer.toString('base64')}`
+  const logoPath = await logoToDataUrl(logoFile)
 
   const template = await prisma.template.findUnique({ where: { id: templateId } })
   if (!template) throw new Error('Template não encontrado.')
