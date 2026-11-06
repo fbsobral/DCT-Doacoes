@@ -13,6 +13,7 @@
     "@clerk/nextjs": "^6",
     "@prisma/client": "^5",
     "next": "^14",
+    "puppeteer-core": "^25.16.0",
     "react": "^18",
     "react-dom": "^18"
   },

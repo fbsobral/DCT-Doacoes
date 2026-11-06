@@ -91,6 +91,13 @@ export default async function AdminPage() {
                         Ver
                       </a>
                       <a
+                        href={`/api/proposals/${proposal.id}/pdf`}
+                        className="text-xs px-3 py-1.5 rounded border border-green-300 text-green-700 hover:bg-green-50 transition-colors"
+                        title="Baixar PDF"
+                      >
+                        PDF
+                      </a>
+                      <a
                         href={`/admin/proposals/${proposal.id}/edit`}
                         className="text-xs px-3 py-1.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
                       >

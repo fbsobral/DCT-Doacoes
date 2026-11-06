@@ -14,8 +14,9 @@ RUN npx next build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
-RUN apk add --no-cache openssl
+RUN apk add --no-cache openssl chromium
 ENV NODE_ENV=production
+ENV CHROMIUM_PATH=/usr/bin/chromium-browser
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
