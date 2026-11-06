@@ -20,8 +20,10 @@ const PREPARE_FOR_PDF = `
   }
 
   // Make every slide visible and stacked vertically
-  document.querySelectorAll('.slide').forEach(slide => {
+  const slides = document.querySelectorAll('.slide')
+  slides.forEach((slide, i) => {
     slide.classList.add('active')
+    const isLast = i === slides.length - 1
     slide.style.cssText = [
       'position:relative',
       'inset:auto',
@@ -33,9 +35,9 @@ const PREPARE_FOR_PDF = `
       'height:720px',
       'overflow:hidden',
       'flex-shrink:0',
-      'page-break-after:always',
-      'break-after:page',
-    ].join(';')
+      isLast ? '' : 'page-break-after:always',
+      isLast ? '' : 'break-after:page',
+    ].filter(Boolean).join(';')
   })
 `
 
@@ -80,14 +82,12 @@ export async function GET(
     const page = await browser.newPage()
     await page.setViewport({ width: 1280, height: 720, deviceScaleFactor: 1.5 })
 
-    await page.goto(url, { waitUntil: 'load', timeout: 30_000 })
+    // networkidle2 waits for Google Fonts woff2 files to finish downloading
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 45_000 })
 
-    // Wait for fonts and lazy images
+    // Wait for all fonts to be parsed and ready
     await page.evaluate(() =>
-      Promise.all([
-        document.fonts.ready,
-        new Promise<void>((r) => setTimeout(r, 800)),
-      ])
+      document.fonts.ready.then(() => new Promise<void>((r) => setTimeout(r, 400)))
     )
 
     // Re-layout slides for PDF
