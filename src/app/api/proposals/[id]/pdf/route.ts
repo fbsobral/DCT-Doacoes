@@ -41,8 +41,15 @@ const PREPARE_FOR_PDF = `
   })
 `
 
+import { existsSync } from 'fs'
+
 function chromiumPath(): string {
   if (process.env.CHROMIUM_PATH) return process.env.CHROMIUM_PATH
+  // Alpine Linux (Docker)
+  for (const p of ['/usr/bin/chromium-browser', '/usr/bin/chromium']) {
+    if (existsSync(p)) return p
+  }
+  // macOS local dev
   return '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 }
 
@@ -66,8 +73,11 @@ export async function GET(
 
   const url = `${appBaseUrl()}/${proposal.template.slug}/${proposal.slug}/`
 
+  const execPath = chromiumPath()
+  console.log('[pdf] chromium:', execPath, '| url:', url)
+
   const browser = await puppeteer.launch({
-    executablePath: chromiumPath(),
+    executablePath: execPath,
     headless: true,
     args: [
       '--no-sandbox',
@@ -113,6 +123,9 @@ export async function GET(
         'Cache-Control': 'no-store',
       },
     })
+  } catch (err) {
+    console.error('[pdf] erro ao gerar PDF:', err)
+    throw err
   } finally {
     await browser.close()
   }
