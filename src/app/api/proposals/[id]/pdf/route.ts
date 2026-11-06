@@ -2,41 +2,51 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import puppeteer from 'puppeteer-core'
 
-// Injected into the HTML snapshot before PDF rendering:
-// - forces every .slide to become its own PDF page
-// - hides navigation UI
-const PRINT_CSS = `
-  <style id="__pdf_print__">
-    html, body {
-      margin: 0 !important;
-      padding: 0 !important;
-      background: #000 !important;
-    }
-    .nav-bar, #btn-prev, #btn-next, [class*="nav"], .pdf-download-bar {
-      display: none !important;
-    }
-    .slide {
-      display: flex !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      position: relative !important;
-      width: 1280px !important;
-      height: 720px !important;
-      page-break-after: always !important;
-      break-after: page !important;
-      overflow: hidden !important;
-    }
-    @page {
-      size: 1280px 720px landscape;
-      margin: 0;
-    }
-  </style>
+// Injected via page.evaluate() after the page loads.
+// Re-arranges the fixed/absolute slide deck into a vertical stack
+// suitable for multi-page PDF printing.
+const PREPARE_FOR_PDF = `
+  // Hide nav and download button
+  document.querySelectorAll('.nav-bar, .pdf-download-bar').forEach(el => el.remove())
+
+  // Unlock the body/html from overflow:hidden
+  document.documentElement.style.cssText = 'margin:0;padding:0;background:#000;overflow:visible;height:auto;'
+  document.body.style.cssText = 'margin:0;padding:0;background:#000;overflow:visible;height:auto;'
+
+  // Convert the fixed deck into a simple block
+  const deck = document.querySelector('.deck')
+  if (deck) {
+    deck.style.cssText = 'position:static;display:block;background:#000;'
+  }
+
+  // Make every slide visible and stacked vertically
+  document.querySelectorAll('.slide').forEach(slide => {
+    slide.classList.add('active')
+    slide.style.cssText = [
+      'position:relative',
+      'inset:auto',
+      'opacity:1',
+      'pointer-events:auto',
+      'display:flex',
+      'flex-direction:column',
+      'width:1280px',
+      'height:720px',
+      'overflow:hidden',
+      'flex-shrink:0',
+      'page-break-after:always',
+      'break-after:page',
+    ].join(';')
+  })
 `
 
 function chromiumPath(): string {
   if (process.env.CHROMIUM_PATH) return process.env.CHROMIUM_PATH
-  // Local Mac dev fallback
   return '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+}
+
+function appBaseUrl(): string {
+  if (process.env.APP_BASE_URL) return process.env.APP_BASE_URL.replace(/\/$/, '')
+  return 'http://localhost:3000'
 }
 
 export async function GET(
@@ -45,16 +55,14 @@ export async function GET(
 ) {
   const proposal = await prisma.proposal.findUnique({
     where: { id: params.id },
-    select: { htmlSnapshot: true, name: true, slug: true },
+    select: { slug: true, name: true, template: { select: { slug: true } } },
   })
 
   if (!proposal) {
     return new NextResponse('Proposta não encontrada.', { status: 404 })
   }
 
-  // Inject print CSS into the snapshot
-  let html = proposal.htmlSnapshot
-  html = html.replace('</head>', `${PRINT_CSS}</head>`)
+  const url = `${appBaseUrl()}/${proposal.template.slug}/${proposal.slug}/`
 
   const browser = await puppeteer.launch({
     executablePath: chromiumPath(),
@@ -64,18 +72,29 @@ export async function GET(
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--disable-gpu',
+      '--font-render-hinting=none',
     ],
   })
 
   try {
     const page = await browser.newPage()
-    await page.setViewport({ width: 1280, height: 720 })
-    await page.setContent(html, { waitUntil: 'load', timeout: 30000 })
+    await page.setViewport({ width: 1280, height: 720, deviceScaleFactor: 1.5 })
 
-    // Wait for fonts to load and give JS time to settle
-    await page.evaluate(
-      () => document.fonts.ready.then(() => new Promise<void>((r) => setTimeout(r, 600)))
+    await page.goto(url, { waitUntil: 'load', timeout: 30_000 })
+
+    // Wait for fonts and lazy images
+    await page.evaluate(() =>
+      Promise.all([
+        document.fonts.ready,
+        new Promise<void>((r) => setTimeout(r, 800)),
+      ])
     )
+
+    // Re-layout slides for PDF
+    await page.evaluate(PREPARE_FOR_PDF)
+
+    // Another tick to let reflows settle
+    await page.evaluate(() => new Promise<void>((r) => setTimeout(r, 300)))
 
     const pdfBuffer = await page.pdf({
       width: '1280px',
