@@ -7,6 +7,7 @@ import { existsSync } from 'fs'
 // Hide UI chrome; keep slides in their original interactive layout
 const HIDE_UI_CSS = `<style id="__pdf__">
   .nav-bar,.pdf-download-bar,#btn-prev,#btn-next,.nav-dots,.progress-bar{display:none!important;}
+  .slide{transition:none!important;}
 </style>`
 
 function chromiumPath(): string {
@@ -76,7 +77,7 @@ export async function GET(
         })
       }, i)
       // Brief wait for transitions
-      await new Promise((r) => setTimeout(r, 120))
+      await new Promise((r) => setTimeout(r, 300))
       const shot = await page.screenshot({
         type: 'jpeg',
         quality: 92,
