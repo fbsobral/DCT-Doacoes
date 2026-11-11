@@ -1,21 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateGenericSnapshot } from '@/lib/template'
 import puppeteer from 'puppeteer-core'
+import { PDFDocument } from 'pdf-lib'
 import { existsSync } from 'fs'
 
-const PRINT_CSS = `<style id="__pdf__">
-  @page{size:13.333in 7.5in landscape;margin:0;}
-  html,body{margin:0;padding:0;background:transparent;overflow:visible;height:auto;width:1280px;}
+const HIDE_UI_CSS = `<style id="__pdf__">
   .nav-bar,.pdf-download-bar,#btn-prev,#btn-next,.nav-dots,.progress-bar{display:none!important;}
-  .deck{position:static!important;display:block!important;height:auto!important;overflow:visible!important;width:1280px!important;}
-  .slide{
-    position:relative!important;inset:auto!important;
-    opacity:1!important;pointer-events:auto!important;
-    display:flex!important;flex-direction:column!important;
-    width:1280px!important;height:720px!important;
-    overflow:hidden!important;flex-shrink:0!important;
-  }
-  .slide:not(:last-child){page-break-after:always!important;break-after:page!important;}
 </style>`
 
 function chromiumPath(): string {
@@ -36,10 +26,9 @@ function publicBaseUrl(req: NextRequest): string {
 export async function GET(req: NextRequest) {
   const base = publicBaseUrl(req)
   let html = await generateGenericSnapshot()
-
   html = html
     .replace(/\/(projecto-de-vida\/template\/assets\/)/g, `${base}/$1`)
-    .replace('</head>', `${PRINT_CSS}</head>`)
+    .replace('</head>', `${HIDE_UI_CSS}</head>`)
 
   const execPath = chromiumPath()
   console.log('[pdf:generic] chromium:', execPath, '| base:', base)
@@ -47,13 +36,7 @@ export async function GET(req: NextRequest) {
   const browser = await puppeteer.launch({
     executablePath: execPath,
     headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu',
-      '--font-render-hinting=none',
-    ],
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--font-render-hinting=none'],
   })
 
   try {
@@ -61,17 +44,42 @@ export async function GET(req: NextRequest) {
     await page.setViewport({ width: 1280, height: 720, deviceScaleFactor: 1 })
     await page.setContent(html, { waitUntil: 'load', timeout: 30_000 })
     await page.evaluate(() =>
-      document.fonts.ready.then(() => new Promise<void>((r) => setTimeout(r, 800)))
+      document.fonts.ready.then(() => new Promise<void>((r) => setTimeout(r, 1000)))
     )
 
-    const pdfBuffer = await page.pdf({
-      width: '13.333in',
-      height: '7.5in',
-      printBackground: true,
-      margin: { top: '0', right: '0', bottom: '0', left: '0' },
-    })
+    const slideCount = await page.evaluate(() =>
+      document.querySelectorAll('.slide').length
+    )
+    console.log('[pdf:generic] slides:', slideCount)
 
-    return new NextResponse(Buffer.from(pdfBuffer), {
+    const screenshots: Buffer[] = []
+    for (let i = 0; i < slideCount; i++) {
+      await page.evaluate((idx) => {
+        document.querySelectorAll('.slide').forEach((s, j) => {
+          const el = s as HTMLElement
+          el.style.opacity = j === idx ? '1' : '0'
+          el.style.pointerEvents = j === idx ? 'auto' : 'none'
+        })
+      }, i)
+      await new Promise((r) => setTimeout(r, 120))
+      const shot = await page.screenshot({
+        type: 'jpeg',
+        quality: 92,
+        clip: { x: 0, y: 0, width: 1280, height: 720 },
+      })
+      screenshots.push(Buffer.from(shot))
+    }
+
+    const pdf = await PDFDocument.create()
+    for (const shot of screenshots) {
+      const img = await pdf.embedJpg(shot)
+      const page_ = pdf.addPage([1280, 720])
+      page_.drawImage(img, { x: 0, y: 0, width: 1280, height: 720 })
+    }
+
+    const pdfBytes = await pdf.save()
+
+    return new NextResponse(Buffer.from(pdfBytes), {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
