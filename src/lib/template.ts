@@ -74,9 +74,10 @@ export async function generateGenericSnapshot(): Promise<string> {
     /COMO \[ARTIGO\] <span[^>]*>\[EMPRESA\]<\/span> PODE CONTRIBUIR\?/,
     'COMO SUA EMPRESA PODE CONTRIBUIR?'
   )
+
   html = html.replace(
-    /O que \[artigo\] <span[^>]*>\[Empresa\]<\/span> ganha em troca/,
-    'O que sua empresa ganha em troca'
+    /O QUE <span[^>]*>\[EMPRESA\]<\/span> GANHA SENDO PARCEIRA\?/,
+    'O QUE SUA EMPRESA GANHA SENDO PARCEIRA?'
   )
 
   // Clean up any remaining placeholders
