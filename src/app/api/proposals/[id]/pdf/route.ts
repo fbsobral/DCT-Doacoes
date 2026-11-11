@@ -4,9 +4,10 @@ import puppeteer from 'puppeteer-core'
 import { existsSync } from 'fs'
 
 const PRINT_CSS = `<style id="__pdf__">
-  html,body{margin:0;padding:0;background:#000;overflow:visible;height:auto;}
+  @page{size:13.333in 7.5in landscape;margin:0;}
+  html,body{margin:0;padding:0;background:transparent;overflow:visible;height:auto;width:1280px;}
   .nav-bar,.pdf-download-bar,#btn-prev,#btn-next,.nav-dots,.progress-bar{display:none!important;}
-  .deck{position:static!important;display:block!important;height:auto!important;overflow:visible!important;}
+  .deck{position:static!important;display:block!important;height:auto!important;overflow:visible!important;width:1280px!important;}
   .slide{
     position:relative!important;inset:auto!important;
     opacity:1!important;pointer-events:auto!important;
@@ -15,7 +16,6 @@ const PRINT_CSS = `<style id="__pdf__">
     overflow:hidden!important;flex-shrink:0!important;
   }
   .slide:not(:last-child){page-break-after:always!important;break-after:page!important;}
-  @page{size:1280px 720px landscape;margin:0;}
 </style>`
 
 function chromiumPath(): string {
@@ -80,8 +80,8 @@ export async function GET(
     )
 
     const pdfBuffer = await page.pdf({
-      width: '1280px',
-      height: '720px',
+      width: '13.333in',
+      height: '7.5in',
       printBackground: true,
       margin: { top: '0', right: '0', bottom: '0', left: '0' },
     })
