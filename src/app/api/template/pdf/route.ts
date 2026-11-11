@@ -64,6 +64,18 @@ export async function GET(req: NextRequest) {
       )
     )
 
+    // Trigger slide-9 background (loaded lazily via JS in goTo(8))
+    await page.evaluate(() =>
+      new Promise<void>((resolve) => {
+        const slide9 = document.querySelector('.slide-9') as HTMLElement | null
+        if (!slide9) { resolve(); return }
+        const img = new Image()
+        img.onload = () => { slide9.classList.add('bg-loaded'); resolve() }
+        img.onerror = () => { slide9.classList.add('bg-loaded'); resolve() }
+        img.src = 'assets/slide9-bg.jpg'
+      })
+    )
+
     const slideCount = await page.evaluate(() =>
       document.querySelectorAll('.slide').length
     )
