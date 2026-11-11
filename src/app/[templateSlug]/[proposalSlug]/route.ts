@@ -10,15 +10,15 @@ const PDF_BAR = (id: string) => `
       btn.innerHTML='<svg width=\\'14\\'height=\\'14\\'viewBox=\\'0 0 24 24\\'fill=\\'none\\'stroke=\\'currentColor\\'stroke-width=\\'2.5\\'stroke-linecap=\\'round\\'><path d=\\'M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83\\'><animateTransform attributeName=\\'transform\\'type=\\'rotate\\'from=\\'0 12 12\\'to=\\'360 12 12\\'dur=\\'1s\\'repeatCount=\\'indefinite\\'/></path></svg>Baixando…';
       btn.style.opacity='0.75';btn.style.cursor='wait';
       fetch('/api/proposals/${id}/pdf')
-        .then(function(r){if(!r.ok)throw new Error();return r.blob();})
+        .then(function(r){if(!r.ok)throw new Error('status '+r.status);return r.blob();})
         .then(function(blob){
+          var url=URL.createObjectURL(blob);
           var a=document.createElement('a');
-          a.href=URL.createObjectURL(blob);
-          a.download='proposta.pdf';
-          a.click();
-          URL.revokeObjectURL(a.href);
+          a.href=url;a.download='proposta.pdf';
+          document.body.appendChild(a);a.click();document.body.removeChild(a);
+          setTimeout(function(){URL.revokeObjectURL(url);},1000);
         })
-        .catch(function(){alert('Erro ao gerar PDF. Tente novamente.');})
+        .catch(function(e){alert('Erro ao gerar PDF: '+(e&&e.message?e.message:'desconhecido'));})
         .finally(function(){
           delete btn.dataset.loading;
           btn.innerHTML='<svg width=\\'15\\'height=\\'15\\'viewBox=\\'0 0 24 24\\'fill=\\'none\\'stroke=\\'currentColor\\'stroke-width=\\'2.2\\'stroke-linecap=\\'round\\'stroke-linejoin=\\'round\\'><path d=\\'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\\'/><polyline points=\\'7 10 12 15 17 10\\'/><line x1=\\'12\\'y1=\\'15\\'x2=\\'12\\'y2=\\'3\\'/></svg>Baixar PDF';
