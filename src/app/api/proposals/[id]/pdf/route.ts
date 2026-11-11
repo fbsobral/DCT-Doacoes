@@ -69,7 +69,7 @@ export async function GET(
 
   try {
     const page = await browser.newPage()
-    await page.setViewport({ width: 1280, height: 720, deviceScaleFactor: 1.5 })
+    await page.setViewport({ width: 1280, height: 720, deviceScaleFactor: 1 })
 
     // setContent with absolute asset URLs — no loopback needed
     await page.setContent(html, { waitUntil: 'load', timeout: 30_000 })

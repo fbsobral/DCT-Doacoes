@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const page = await browser.newPage()
-    await page.setViewport({ width: 1280, height: 720, deviceScaleFactor: 1.5 })
+    await page.setViewport({ width: 1280, height: 720, deviceScaleFactor: 1 })
     await page.setContent(html, { waitUntil: 'load', timeout: 30_000 })
     await page.evaluate(() =>
       document.fonts.ready.then(() => new Promise<void>((r) => setTimeout(r, 800)))
