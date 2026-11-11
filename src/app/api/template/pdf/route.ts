@@ -48,6 +48,22 @@ export async function GET(req: NextRequest) {
       document.fonts.ready.then(() => new Promise<void>((r) => setTimeout(r, 1000)))
     )
 
+    // Force all lazy images to load before screenshotting
+    await page.evaluate(() => {
+      document.querySelectorAll('img').forEach((img) => {
+        (img as HTMLImageElement).loading = 'eager'
+      })
+    })
+    await page.evaluate(() =>
+      Promise.all(
+        Array.from(document.images).map((img) =>
+          img.complete
+            ? Promise.resolve()
+            : new Promise<void>((r) => { img.onload = () => r(); img.onerror = () => r() })
+        )
+      )
+    )
+
     const slideCount = await page.evaluate(() =>
       document.querySelectorAll('.slide').length
     )
