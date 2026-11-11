@@ -180,16 +180,6 @@
     padding-bottom: clamp(32px,4vw,56px);
   }
 
-  /* ── Slide 4 (aprovação + marracuene – fundo cinza) ── */
-  .slide-4 { background: #E8EAF0; }
-  .slide-4 .logo-name { color: #0A1F6B; }
-  .slide-4 .logo-sub  { color: rgba(10,31,107,0.45); }
-  .slide-4 .topbar-label { color: rgba(10,31,107,0.4); }
-  .slide-4 .content {
-    flex: 1; display: flex; flex-direction: column; justify-content: center;
-    padding-bottom: clamp(32px,4vw,56px);
-  }
-
   /* ── Slide 5 (cronograma – fundo cinza) ── */
   .slide-5 { background: #E8EAF0; }
   .slide-5 .logo-name { color: #0A1F6B; }
@@ -344,10 +334,6 @@
     .s3-right { order: 2 !important; }
     .s3-stats { grid-template-columns: repeat(2,1fr) !important; gap: 18px 12px !important; }
 
-    /* ── Slide 4 mobile (aprovação) ── */
-    .slide-4 .content { padding-bottom: 90px; justify-content: flex-start; padding-top: 24px; }
-    .s7-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
-
     /* ── Slide 5 mobile (cronograma) ── */
     .slide-5 .content { padding-bottom: 90px; justify-content: flex-start; padding-top: 24px; }
 
@@ -409,7 +395,7 @@
 
       <h1>Investir em jovens<br>é mudar realidades<br>com propósito</h1>
 
-      <p>O apoio da sua organização garante que jovens com potencial tenham acesso à orientação certa, conteúdos práticos e experiências transformadoras que mudam&nbsp;trajetórias.</p>
+      <p>Destinado a jovens a partir dos 16 anos de Moçambique, o <strong>Projeto de Vida</strong> é um programa de orientação de vida e carreira aplicado em escolas públicas do país em estudantes da 11ª e 12ª classe do ensino&nbsp;secundário.</p>
 
       <div>
         <a href="#" onclick="event.preventDefault(); goTo(1);" class="btn-primary">
@@ -524,66 +510,46 @@
 
       <div class="s3-grid" style="display:grid; grid-template-columns:1fr 0.85fr; gap:clamp(32px,5vw,72px); align-items:start;">
 
-        <!-- Carrossel de artigos -->
-        <div class="s3-right" style="order:2; min-width:0;">
+        <!-- Galeria + Mapa -->
+        <div class="s3-right" style="order:2; min-width:0; display:flex; flex-direction:column; gap:10px; align-self:stretch;">
 
-          <!-- Tag + seta -->
-          <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
-            <div style="display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.6); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid rgba(10,31,107,0.1); border-radius:24px; padding:10px 22px; font-size:clamp(10px,0.95vw,13px); font-weight:700; color:#0A1F6B; letter-spacing:0.06em; text-transform:uppercase;">
-              Uma inspiração do
-              <!-- Brasil -->
-              <svg width="32" height="22" viewBox="0 0 32 22" xmlns="http://www.w3.org/2000/svg" style="border-radius:3px; display:block; flex-shrink:0;">
-                <rect width="32" height="22" fill="#009C3B"/>
-                <polygon points="16,2.5 30.5,11 16,19.5 1.5,11" fill="#FFDF00"/>
-                <circle cx="16" cy="11" r="5.5" fill="#002776"/>
-                <!-- Faixa branca levemente diagonal (baixo-esquerda → cima-direita) -->
-                <path d="M10.6,12.8 C13,10.8 19,9.8 21.4,9.2" stroke="#fff" stroke-width="1.7" fill="none" stroke-linecap="round"/>
-              </svg>
-              para
-              <!-- Moçambique -->
-              <img src="assets/bandeira-mocambique.jpg" alt="Moçambique" style="width:32px; height:22px; object-fit:cover; border-radius:3px; display:block; flex-shrink:0;">
-            </div>
-            <div style="width:42px; height:42px; background:#1755D9; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-            </div>
-          </div>
+          <!-- Caixa branca: título + slider + mapa -->
+          <div style="background:#fff; border-radius:14px; padding:clamp(14px,1.6vw,20px); box-shadow:0 2px 12px rgba(10,31,107,0.08); display:flex; flex-direction:column; gap:12px; height:100%;">
 
-          <!-- Browser card -->
-          <div id="s3-card" style="background:#fff; border-radius:14px; border:1px solid rgba(0,0,0,0.08); overflow:hidden; box-shadow:0 4px 24px rgba(10,31,107,0.08); width:100%;">
-            <!-- browser chrome -->
-            <div style="background:#F2F4F7; border-bottom:1px solid rgba(0,0,0,0.07); padding:10px 16px; display:flex; align-items:center; gap:10px;">
-              <div style="display:flex; gap:5px;">
-                <div style="width:10px; height:10px; border-radius:50%; background:#FF5F57;"></div>
-                <div style="width:10px; height:10px; border-radius:50%; background:#FEBC2E;"></div>
-                <div style="width:10px; height:10px; border-radius:50%; background:#28C840;"></div>
+            <!-- Título + texto -->
+            <div style="flex-shrink:0;">
+              <div style="font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:rgba(10,31,107,0.35); margin-bottom:4px;">Onde actuaremos</div>
+              <div style="font-size:clamp(18px,2vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1; margin-bottom:6px;">Marracuene, Moçambique</div>
+              <p style="font-size:clamp(11.5px,1vw,13.5px); color:rgba(10,31,107,0.6); line-height:1.6; margin:0;">Distrito costeiro da Província de Maputo, a cerca de 30 km da capital. Com uma população predominantemente jovem, Marracuene é o primeiro local que receberá o Projeto de Vida.</p>
+            </div>
+
+            <!-- Mapa -->
+            <div style="border-radius:8px; overflow:hidden; height:clamp(110px,15vh,170px); flex-shrink:0;">
+              <iframe src="https://maps.google.com/maps?q=Marracuene,+Mo%C3%A7ambique&z=12&output=embed" style="width:100%; height:100%; border:0; display:block;" loading="lazy" allowfullscreen="" title="Marracuene, Moçambique"></iframe>
+            </div>
+
+            <!-- Slider de fotos -->
+            <div style="position:relative; border-radius:10px; overflow:hidden; flex:1; min-height:clamp(100px,12vh,160px);">
+              <div id="s3img-track" style="position:absolute; inset:0; display:flex; transition:transform 0.4s cubic-bezier(0.65,0,0.35,1);">
+                <div style="flex:0 0 100%;"><img src="assets/marracuene-1.jpg" alt="Marracuene" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+                <div style="flex:0 0 100%;"><img src="assets/marracuene-2.jpg" alt="Marracuene" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+                <div style="flex:0 0 100%;"><img src="assets/marracuene-3.jpg" alt="Marracuene" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+                <div style="flex:0 0 100%;"><img src="assets/marracuene-4.jpg" alt="Marracuene" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+                <div style="flex:0 0 100%;"><img src="assets/marracuene-5.jpg" alt="Marracuene" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
               </div>
-              <div id="s3-url" style="flex:1; min-width:0; background:#E2E4EA; border-radius:6px; padding:4px 12px; font-size:13px; color:#6B7280; text-align:center; font-family:'Barlow',sans-serif; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></div>
+              <div style="position:absolute; bottom:7px; left:50%; transform:translateX(-50%); display:flex; gap:4px; z-index:2;">
+                <button id="s3img-d0" onclick="s3imgGo(0)" style="width:5px; height:5px; border-radius:50%; border:none; cursor:pointer; background:#fff; padding:0; opacity:1;"></button>
+                <button id="s3img-d1" onclick="s3imgGo(1)" style="width:5px; height:5px; border-radius:50%; border:none; cursor:pointer; background:#fff; padding:0; opacity:0.4;"></button>
+                <button id="s3img-d2" onclick="s3imgGo(2)" style="width:5px; height:5px; border-radius:50%; border:none; cursor:pointer; background:#fff; padding:0; opacity:0.4;"></button>
+                <button id="s3img-d3" onclick="s3imgGo(3)" style="width:5px; height:5px; border-radius:50%; border:none; cursor:pointer; background:#fff; padding:0; opacity:0.4;"></button>
+                <button id="s3img-d4" onclick="s3imgGo(4)" style="width:5px; height:5px; border-radius:50%; border:none; cursor:pointer; background:#fff; padding:0; opacity:0.4;"></button>
+              </div>
+              <button onclick="s3imgGo(s3imgCur-1)" style="position:absolute; left:6px; top:50%; transform:translateY(-50%); width:22px; height:22px; border-radius:50%; border:1px solid rgba(255,255,255,0.3); background:rgba(0,0,0,0.3); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:2; padding:0;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+              <button onclick="s3imgGo(s3imgCur+1)" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); width:22px; height:22px; border-radius:50%; border:1px solid rgba(255,255,255,0.3); background:rgba(0,0,0,0.3); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:2; padding:0;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button>
             </div>
-            <!-- article body -->
-            <div style="padding:clamp(20px,2.5vw,32px); min-height:clamp(240px,30vh,340px);">
-              <div id="s3-source" style="font-size:14px; font-weight:700; letter-spacing:0.04em; margin-bottom:12px;"></div>
-              <div id="s3-title" style="font-size:clamp(18px,1.92vw,24px); font-weight:700; color:#111; line-height:1.35; margin-bottom:10px; font-family:'Barlow',sans-serif;"></div>
-              <div id="s3-excerpt" style="font-size:clamp(14px,1.32vw,17px); color:#555; line-height:1.65; margin-bottom:16px; font-family:'Barlow',sans-serif;"></div>
-              <span id="s3-meta" style="font-size:13px; color:#9CA3AF; font-family:'Barlow',sans-serif;"></span>
-            </div>
+
           </div>
 
-          <!-- Nav do carrossel -->
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:16px; padding:0 2px;">
-            <div style="display:flex; gap:6px; align-items:center;">
-              <button onclick="s3Go(0)" id="s3-dot-0" style="width:8px; height:8px; border-radius:50%; border:none; padding:0; cursor:pointer; transition:all .2s;"></button>
-              <button onclick="s3Go(1)" id="s3-dot-1" style="width:8px; height:8px; border-radius:50%; border:none; padding:0; cursor:pointer; transition:all .2s;"></button>
-              <button onclick="s3Go(2)" id="s3-dot-2" style="width:8px; height:8px; border-radius:50%; border:none; padding:0; cursor:pointer; transition:all .2s;"></button>
-            </div>
-            <div style="display:flex; gap:8px;">
-              <button onclick="s3Go(s3cur-1)" style="width:32px; height:32px; border-radius:50%; border:1px solid rgba(10,31,107,0.15); background:#fff; color:#0A1F6B; cursor:pointer; display:flex; align-items:center; justify-content:center;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-              </button>
-              <button onclick="s3Go(s3cur+1)" style="width:32px; height:32px; border-radius:50%; border:1px solid rgba(10,31,107,0.15); background:#fff; color:#0A1F6B; cursor:pointer; display:flex; align-items:center; justify-content:center;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-            </div>
-          </div>
         </div>
 
         <!-- Coluna esquerda: título + intro + stats em 2 colunas -->
@@ -596,50 +562,62 @@
           </div>
 
           <!-- Texto introdutório -->
-          <p style="font-size:clamp(13px,1.2vw,16.5px); color:rgba(10,31,107,0.7); line-height:1.7; margin:0; max-width:none;">O <strong style="color:#0A1F6B;">Projeto de Vida</strong> é um eixo pedagógico focado no autoconhecimento: ajuda o jovem a entender a sua identidade, valores e talentos — e a construir um plano concreto nas dimensões pessoal, social e profissional. Obrigatório em todas as escolas de Ensino Médio do Brasil desde 2022, a DCT-Youths adapta essa metodologia para a realidade de Marracuene.</p>
+          <p style="font-size:clamp(13px,1.2vw,16.5px); color:rgba(10,31,107,0.7); line-height:1.7; margin:0; max-width:none;">O <strong style="color:#0A1F6B;">Projeto de Vida</strong> nasceu para endereçar o problema da falta de orientação profissional entre os jovens de Moçambique. Trata-se de um programa de autoconhecimento e planejamento de carreira. São <strong style="color:#0A1F6B;">19 sessões semanais de 45 minutos</strong> ao longo de <strong style="color:#0A1F6B;">5 meses</strong>, com turmas de <strong style="color:#0A1F6B;">20 estudantes</strong> da 11ª e 12ª classe. O formato será presencial na <strong style="color:#0A1F6B;">Escola Secundária de Nhongonhana</strong>, em Marracuene, iniciando em <strong style="color:#0A1F6B;">janeiro de 2027</strong>.</p>
 
         <div class="s3-stats" style="display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,1.8vw,24px) clamp(10px,1.2vw,16px); align-content:start;">
 
-          <div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">5 meses</div>
-            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">Janeiro a Junho</div>
-            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Duração</div>
+          <div style="display:flex; gap:10px; align-items:flex-start;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0; margin-top:3px;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">20 estudantes</div>
+              <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">por turma</div>
+              <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:4px;">Tamanho da turma</div>
+            </div>
           </div>
 
-          <div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">1× por semana</div>
-            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">19 sessões no total</div>
-            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Frequência</div>
+          <div style="display:flex; gap:10px; align-items:flex-start;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0; margin-top:3px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">11ª–12ª classe</div>
+              <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">jovens de 16 a 19 anos</div>
+              <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:4px;">Público-alvo</div>
+            </div>
           </div>
 
-          <div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">45 minutos</div>
-            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">por encontro</div>
-            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Carga horária</div>
+          <div style="display:flex; gap:10px; align-items:flex-start;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0; margin-top:3px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">Janeiro 2027</div>
+              <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">primeira turma</div>
+              <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:4px;">Início</div>
+            </div>
           </div>
 
-          <div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">11ª–12ª classe</div>
-            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">jovens de 16 a 19 anos</div>
-            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Público-alvo</div>
+          <div style="display:flex; gap:10px; align-items:flex-start;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0; margin-top:3px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">Presencial</div>
+              <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">Marracuene, Moçambique</div>
+              <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:4px;">Formato</div>
+            </div>
           </div>
 
-          <div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">20 estudantes</div>
-            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">por turma</div>
-            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Tamanho da turma</div>
+          <div style="display:flex; gap:10px; align-items:flex-start;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0; margin-top:3px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">1× por semana</div>
+              <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">19 sessões no total</div>
+              <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:4px;">Frequência</div>
+            </div>
           </div>
 
-          <div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="margin-bottom:8px; display:block;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">Presencial</div>
-            <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">Marracuene, Moçambique</div>
-            <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:5px;">Formato</div>
+          <div style="display:flex; gap:10px; align-items:flex-start;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1754D9" stroke-width="1.8" stroke-linecap="round" style="flex-shrink:0; margin-top:3px;"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif; font-size:clamp(18px,1.9vw,26px); font-weight:700; color:#0A1F6B; line-height:1.1;">5 meses</div>
+              <div style="font-size:clamp(11px,0.9vw,13px); color:rgba(10,31,107,0.5); margin-top:2px; line-height:1.4;">Janeiro a Junho</div>
+              <div style="font-size:9px; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:rgba(10,31,107,0.28); margin-top:4px;">Duração</div>
+            </div>
           </div>
 
         </div><!-- /stats grid -->
@@ -700,137 +678,23 @@
   s3Go(0);
 </script>
 
-<!-- ════════════ SLIDE 4 · APROVAÇÃO + MARRACUENE ════════════ -->
-<div class="slide slide-4">
-  <div class="wrapper">
-    <div class="topbar">
-      <div class="logo">
-        <div class="logo-icon">
-          <img src="assets/logo.png" alt="D.C.T-Youths" width="36" height="36" style="object-fit:contain;">
-        </div>
-        <div class="logo-text">
-          <span class="logo-name">D.C.T-Youths</span>
-          <span class="logo-sub">Dreams Can Come True</span>
-        </div>
-      </div>
-      <div class="topbar-label">Proposta de Doação</div>
-    </div>
-    <div class="content">
-      <div style="display:flex; flex-direction:column; gap:clamp(18px,2vw,28px);">
-
-        <!-- ── Aprovação governamental ── -->
-        <div style="display:flex; flex-direction:column; gap:clamp(10px,1.2vw,16px);">
-          <div>
-            <div style="font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:rgba(10,31,107,0.35); margin-bottom:6px;">Credencial</div>
-            <h2 style="font-size:clamp(24.2px,2.9vw,41.1px); color:#0A1F6B; line-height:1.15; margin-bottom:0;">Somos Credenciados pelo Governo Distrital de Marracuene</h2>
-          </div>
-          <!-- Doc (esquerda) + tudo o resto (direita) -->
-          <div style="display:flex; gap:clamp(16px,2vw,28px); align-items:flex-start;">
-
-            <!-- Coluna esquerda: foto do documento com logo SDEJT sobreposta -->
-            <div style="flex-shrink:0; width:clamp(238px,27.2vw,357px);">
-              <div style="position:relative; border-radius:10px; overflow:hidden; border:1px solid rgba(10,31,107,0.12); background:rgba(10,31,107,0.04); aspect-ratio:3/4.4;">
-                <img src="assets/sdejt-logo.jpg" alt="SDEJT Marracuene" loading="lazy" decoding="async" style="position:absolute; top:10px; left:10px; width:clamp(100px,10vw,144px); height:auto; border-radius:6px; z-index:3; box-shadow:0 2px 8px rgba(0,0,0,0.18);">
-                <img src="assets/doc-aprovacao.jpg" id="s7-doc-img" alt="Credencial DCT-Youths" loading="lazy" decoding="async" onclick="docLightbox()" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top; z-index:2; opacity:0; transition:opacity 0.3s; cursor:zoom-in;">
-                <div id="s7-doc-placeholder" style="position:absolute; inset:0; z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:12px; text-align:center;">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(10,31,107,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  <div style="font-size:9px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(10,31,107,0.25);">doc-aprovacao.jpg</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Coluna direita: tudo o resto -->
-            <div style="flex:1; display:flex; flex-direction:column; gap:clamp(12px,1.4vw,18px);">
-
-              <!-- Texto (100% da coluna direita) -->
-              <p style="font-size:clamp(13px,1.13vw,15.1px); color:rgba(10,31,107,0.7); line-height:1.75; margin:0; max-width:none; width:100%;">O Serviço Distrital de Educação, Juventude e Tecnologia de Marracuene credenciou a D.C.T-Youths para desenvolver o seu programa na <strong style="color:#0A1F6B; font-weight:600;">Escola Secundária de Nhongonhana</strong>, pelo período de um (1) ano.</p>
-
-              <!-- Badges -->
-              <div style="display:flex; flex-wrap:wrap; gap:7px;">
-                <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(23,85,217,0.1); border:1px solid rgba(23,85,217,0.3); border-radius:100px; padding:5px 12px;">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1755D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span style="font-size:11px; font-weight:600; color:rgba(10,31,107,0.8); text-transform:uppercase; letter-spacing:0.07em;">Credencial SDEJT Marracuene</span>
-                </div>
-                <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(23,85,217,0.1); border:1px solid rgba(23,85,217,0.3); border-radius:100px; padding:5px 12px;">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1755D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                  <span style="font-size:11px; font-weight:600; color:rgba(10,31,107,0.8); text-transform:uppercase; letter-spacing:0.07em;">Escola Secundária de Nhongonhana</span>
-                </div>
-                <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(23,85,217,0.1); border:1px solid rgba(23,85,217,0.3); border-radius:100px; padding:5px 12px;">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1755D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  <span style="font-size:11px; font-weight:600; color:rgba(10,31,107,0.8); text-transform:uppercase; letter-spacing:0.07em;">Validade: 1 Ano</span>
-                </div>
-              </div>
-
-              <!-- Onde actuaremos -->
-              <div style="display:flex; flex-direction:column; gap:clamp(10px,1.2vw,16px); background:#fff; border-radius:14px; border:1px solid rgba(10,31,107,0.1); padding:clamp(14px,1.6vw,22px);">
-                <div>
-                  <div style="font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:rgba(10,31,107,0.35); margin-bottom:8px;">Onde actuaremos</div>
-                  <h2 style="font-size:clamp(18px,2.2vw,30px); color:#0A1F6B; line-height:1.15; margin-bottom:clamp(6px,0.8vw,10px);">Marracuene, Moçambique</h2>
-                  <p style="font-size:clamp(12.5px,1.08vw,14.7px); color:rgba(10,31,107,0.65); line-height:1.65; margin:0; max-width:none; width:100%;">Distrito costeiro da Província de Maputo, a cerca de 30 km da capital. Com uma população predominantemente jovem, Marracuene é onde a D.C.T-Youths concentra o seu impacto em educação e desenvolvimento.</p>
-                </div>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(10px,1.2vw,16px);">
-                  <!-- Slider -->
-                  <div style="position:relative; border-radius:10px; overflow:hidden; aspect-ratio:3/2;">
-                    <div id="s7-track" style="display:flex; height:100%; transition:transform 0.4s cubic-bezier(0.65,0,0.35,1);">
-                      <div style="min-width:100%; height:100%; background:#0D2880; flex-shrink:0; position:relative;"><img src="assets/marracuene-1.jpg" alt="Marracuene" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></div>
-                      <div style="min-width:100%; height:100%; background:#0A1F6B; flex-shrink:0; position:relative;"><img src="assets/marracuene-2.jpg" alt="Marracuene" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></div>
-                      <div style="min-width:100%; height:100%; background:#071446; flex-shrink:0; position:relative;"><img src="assets/marracuene-3.jpg" alt="Marracuene" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></div>
-                      <div style="min-width:100%; height:100%; background:#0D2880; flex-shrink:0; position:relative;"><img src="assets/marracuene-4.jpg" alt="Marracuene" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></div>
-                      <div style="min-width:100%; height:100%; background:#0A1F6B; flex-shrink:0; position:relative;"><img src="assets/marracuene-5.jpg" alt="Marracuene" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></div>
-                    </div>
-                    <div style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:4px; z-index:2;">
-                      <button id="s7-d0" onclick="s7Go(0)" style="width:5px; height:5px; border-radius:50%; border:none; cursor:pointer; background:#fff; padding:0;"></button>
-                      <button id="s7-d1" onclick="s7Go(1)" style="width:5px; height:5px; border-radius:50%; border:none; cursor:pointer; background:rgba(255,255,255,0.4); padding:0;"></button>
-                      <button id="s7-d2" onclick="s7Go(2)" style="width:5px; height:5px; border-radius:50%; border:none; cursor:pointer; background:rgba(255,255,255,0.4); padding:0;"></button>
-                      <button id="s7-d3" onclick="s7Go(3)" style="width:5px; height:5px; border-radius:50%; border:none; cursor:pointer; background:rgba(255,255,255,0.4); padding:0;"></button>
-                      <button id="s7-d4" onclick="s7Go(4)" style="width:5px; height:5px; border-radius:50%; border:none; cursor:pointer; background:rgba(255,255,255,0.4); padding:0;"></button>
-                    </div>
-                    <button onclick="s7Go(s7cur-1)" style="position:absolute; left:6px; top:50%; transform:translateY(-50%); width:22px; height:22px; border-radius:50%; border:1px solid rgba(255,255,255,0.2); background:rgba(0,0,0,0.35); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:2; padding:0;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-                    <button onclick="s7Go(s7cur+1)" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); width:22px; height:22px; border-radius:50%; border:1px solid rgba(255,255,255,0.2); background:rgba(0,0,0,0.35); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:2; padding:0;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button>
-                  </div>
-                  <!-- Mapa -->
-                  <div style="border-radius:10px; overflow:hidden; border:1px solid rgba(10,31,107,0.12); aspect-ratio:3/2;">
-                    <iframe src="https://maps.google.com/maps?q=Marracuene,+Mo%C3%A7ambique&z=12&output=embed" style="width:100%; height:100%; border:0; display:block;" loading="lazy" allowfullscreen="" title="Marracuene, Moçambique"></iframe>
-                  </div>
-                </div>
-              </div>
-
-            </div><!-- /coluna direita -->
-          </div><!-- /flex row -->
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
 (function() {
-  var s7cur = 0;
-  window.s7cur = s7cur;
-  window.s7Go = function(n) {
-    s7cur = ((n % 5) + 5) % 5;
-    window.s7cur = s7cur;
-    document.getElementById('s7-track').style.transform = 'translateX(-' + (s7cur * 100) + '%)';
-    ['s7-d0','s7-d1','s7-d2','s7-d3','s7-d4'].forEach(function(id, i) {
-      document.getElementById(id).style.background = i === s7cur ? '#fff' : 'rgba(255,255,255,0.4)';
-    });
-  };
-  var docImg = document.getElementById('s7-doc-img');
-  if (docImg) {
-    docImg.addEventListener('load', function() {
-      this.style.opacity = '1';
-      var ph = document.getElementById('s7-doc-placeholder');
-      if (ph) ph.style.display = 'none';
-    });
-    if (docImg.complete && docImg.naturalWidth > 0) {
-      docImg.style.opacity = '1';
-      var ph = document.getElementById('s7-doc-placeholder');
-      if (ph) ph.style.display = 'none';
+  var total = 5;
+  window.s3imgCur = 0;
+  window.s3imgGo = function(n) {
+    var cur = ((n % total) + total) % total;
+    window.s3imgCur = cur;
+    var track = document.getElementById('s3img-track');
+    if (track) track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    for (var i = 0; i < total; i++) {
+      var d = document.getElementById('s3img-d' + i);
+      if (d) d.style.opacity = i === cur ? '1' : '0.4';
     }
-  }
+  };
 })();
+</script>
+
 
 // Slider slide 7 (fotos de depoimentos)
 (function() {
