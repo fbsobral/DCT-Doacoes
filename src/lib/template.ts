@@ -54,3 +54,39 @@ export async function generateSnapshot(
 
   return html
 }
+
+const GENERIC_CSS = `<style id="__generic__">
+  .s6-logo-rect { display: none !important; }
+</style>`
+
+export async function generateGenericSnapshot(): Promise<string> {
+  const templatePath = path.join(process.cwd(), 'projecto-de-vida', 'template', 'index.html')
+  let html = await fs.readFile(templatePath, 'utf-8')
+
+  // Fix relative asset paths (same as generateSnapshot)
+  html = html.replace(/(src|href)="assets\//g, '$1="/projecto-de-vida/template/assets/')
+  html = html.replace(/url\('assets\//g, "url('/projecto-de-vida/template/assets/")
+  html = html.replace(/url\("assets\//g, 'url("/projecto-de-vida/template/assets/')
+  html = html.replace(/img\.src = 'assets\//g, "img.src = '/projecto-de-vida/template/assets/")
+
+  // Generic text: slides that mention the company name
+  html = html.replace(
+    /COMO \[ARTIGO\] <span[^>]*>\[EMPRESA\]<\/span> PODE CONTRIBUIR\?/,
+    'COMO SUA EMPRESA PODE CONTRIBUIR?'
+  )
+  html = html.replace(
+    /O que \[artigo\] <span[^>]*>\[Empresa\]<\/span> ganha em troca/,
+    'O que sua empresa ganha em troca'
+  )
+
+  // Clean up any remaining placeholders
+  html = html.replace(/\[ARTIGO\]/g, 'A')
+  html = html.replace(/\[artigo\]/g, 'a')
+  html = html.replace(/\[EMPRESA\]/g, '')
+  html = html.replace(/\[Empresa\]/g, '')
+
+  // Hide logo rect (requires company logo) + inject generic CSS
+  html = html.replace('</head>', `${GENERIC_CSS}</head>`)
+
+  return html
+}
